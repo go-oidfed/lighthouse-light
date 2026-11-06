@@ -1,0 +1,127 @@
+package migration
+
+import (
+	"encoding/json"
+	"os"
+
+	"github.com/go-oidfed/lib/jwx"
+	"github.com/rs/zerolog/log"
+	"gopkg.in/yaml.v3"
+
+	"github.com/go-oidfed/lighthouse-light/internal/migration/utils"
+
+	"github.com/go-oidfed/lighthouse/storage/model"
+)
+
+// StrPtrOrNil returns a *string for a non-empty s, or nil for empty.
+func StrPtrOrNil(s string) *string {
+	if s == "" {
+		return nil
+	}
+	return &s
+}
+
+// ExtractCheckerTrustAnchorIDs walks a checker config YAML node and extracts
+// all trust_anchor entity IDs found in trust_anchors fields.
+func ExtractCheckerTrustAnchorIDs(node *yaml.Node) []string {
+	var ids []string
+	if node == nil || node.Kind == 0 {
+		return ids
+	}
+	walkYAMLForKey(node, "trust_anchors", func(n *yaml.Node) {
+		if n.Kind == yaml.SequenceNode {
+			for _, item := range n.Content {
+				if item.Kind == yaml.ScalarNode {
+					ids = append(ids, item.Value)
+				} else if item.Kind == yaml.MappingNode {
+					for i := 0; i < len(item.Content); i += 2 {
+						if item.Content[i].Value == "entity_id" {
+							ids = append(ids, item.Content[i+1].Value)
+							break
+						}
+					}
+				}
+			}
+		}
+	})
+	return ids
+}
+
+func walkYAMLForKey(node *yaml.Node, key string, fn func(*yaml.Node)) {
+	if node == nil {
+		return
+	}
+	switch node.Kind {
+	case yaml.DocumentNode:
+		for _, c := range node.Content {
+			walkYAMLForKey(c, key, fn)
+		}
+	case yaml.MappingNode:
+		for i := 0; i < len(node.Content); i += 2 {
+			if node.Content[i].Value == key {
+				fn(node.Content[i+1])
+			}
+			walkYAMLForKey(node.Content[i+1], key, fn)
+		}
+	case yaml.SequenceNode:
+		for _, c := range node.Content {
+			walkYAMLForKey(c, key, fn)
+		}
+	}
+}
+
+// ConvertCheckerConfig converts a checker config YAML node to a (type, config)
+// pair suitable for JSON storage, transforming any trust_anchors from inline
+// TrustAnchor objects to []string entity-id references.
+func ConvertCheckerConfig(node *yaml.Node) (string, any) {
+	if node == nil || node.Kind == 0 {
+		return "", nil
+	}
+
+	var raw map[string]any
+	if err := node.Decode(&raw); err != nil {
+		log.Warn().Err(err).Msg("failed to decode checker config")
+		return "", nil
+	}
+
+	checkerType, _ := raw["type"].(string)
+	delete(raw, "type")
+
+	var configVal any
+	if c, ok := raw["config"]; ok {
+		configVal = c
+	}
+
+	utils.NormalizeTrustAnchors(configVal)
+
+	return checkerType, configVal
+}
+
+// ParseJWKSFile reads and parses a JWKS file into a model.JWKS.
+func ParseJWKSFile(path string) (*model.JWKS, error) {
+	jwksData, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	var parsed jwx.JWKS
+	if err := parsed.UnmarshalJSON(jwksData); err != nil {
+		return nil, err
+	}
+	return &model.JWKS{Keys: parsed}, nil
+}
+
+// ParseJWKSFromAny marshals an arbitrary value to JSON and parses it as a JWKS.
+func ParseJWKSFromAny(raw any) (*model.JWKS, error) {
+	jwksBytes, err := json.Marshal(raw)
+	if err != nil {
+		return nil, err
+	}
+	var parsed jwx.JWKS
+	if err := parsed.UnmarshalJSON(jwksBytes); err != nil {
+		return nil, err
+	}
+	if parsed.Set == nil {
+		return nil, nil
+	}
+	return &model.JWKS{Keys: parsed}, nil
+}

@@ -1,0 +1,174 @@
+# LightHouse-light configuration example.
+#
+# The config file holds OPERATIONAL settings and GENERAL (entity-level)
+# federation settings only. Federation CONTENT (subordinates, trust anchors,
+# authority hints, trust mark specs/subjects, published trust marks,
+# issuers/owners, extra entity claims) lives EXCLUSIVELY in the data dir JSON
+# files — see docs/data-directory.md for the formats. There is no
+# config -> data upsert: nothing listed here is written into the data files,
+# and removing a key removes its effect on the next boot.
+#
+# No kms / pk_backend / pkcs11 options: LightHouse-light is hardcoded to
+# filesystem key management (docs/signing.md). This example boots with an
+# EMPTY data dir — provision content files to add subordinates, anchors, etc.
+#
+# Full field-by-field reference: docs/config.md.
+
+# The entity identifier: a URL that identifies this federation entity and is
+# used as the iss/sub of all signed statements. Required.
+entity_id: https://ta.example.org
+
+# Data directory: ALL federation content + runtime state lives here as plain
+# JSON files (subordinates.json, trust_anchors.json, ...). One instance per
+# data dir. Default: /data
+data_dir: /data
+
+# Application logging.
+logging:
+  level: info            # debug | info | warn | error (default: info)
+  format: json           # json (default) | console
+
+# HTTP server. Native TLS is supported via server.tls (see docs/config.md) —
+# the server then listens on port 443 and, with redirect_http, redirects
+# port 80 to HTTPS. Without it (default), put a reverse proxy
+# (Caddy/Traefik/nginx) in front for TLS (docs/deployment.md).
+server:
+  ip_listen: 0.0.0.0     # default 0.0.0.0
+  port: 7672             # default 7672 (plain HTTP only; TLS uses port 443)
+  trusted_proxies: []    # e.g. ["10.0.0.0/8"]; empty = trust the header below
+  forwarded_ip_header: "X-Forwarded-For"   # default
+  # tls:
+  #   enabled: true
+  #   redirect_http: true       # HTTP (port 80) → HTTPS redirect
+  #   cert: /data/tls/cert.pem  # relative paths resolve against the config dir
+  #   key: /data/tls/key.pem
+  # cors:
+  #   enabled: false
+  #   allow_origins: "*"
+
+# Signing. Keys live either in one key file or in a key directory; private
+# keys are NEVER stored in the data dir JSON files.
+signing:
+  auto_generate_keys: true        # default true: create a key on first boot
+  filesystem:
+    key_dir: /data/keys           # multi-key directory (rotated keys land here)
+    # key_file: /data/signing.key # OR a single key file (no rotation)
+  alg: ES512                      # default ES512
+  # rsa_key_len: 2048             # default 2048 (RSA only)
+  # key_rotation:                 # disabled unless configured
+  #   enabled: false
+  #   interval: 30d
+  #   overlap: 1h
+  #   key_announcement_lead_time: 24h
+  #   key_announcement_lead_time_ec_multiplier: 0
+  # Legacy alternative to key_rotation (config2db parity):
+  # automatic_key_rollover:
+  #   enabled: true
+  #   interval: 30d
+
+# GENERAL (entity-level) federation settings — content lives in the data
+# files (docs/data-directory.md).
+federation_data:
+  # General (entity-level) subordinate metadata, applied to all subordinates
+  # unless overridden per subordinate (subordinates.json[].metadata).
+  # metadata:
+  #   openid_provider:
+  #     organization_name: "Example Organization"
+
+  # General constraints for ALL subordinate statements (override in
+  # subordinates.json[].constraints).
+  # constraints:
+  #   one_of:
+  #     - https://root.example.org
+
+  # General critical metadata policy operators.
+  # metadata_policy_crit: ["one_of"]
+
+  # General (entity-level) metadata policies: path to a JSON file holding an
+  # oidfed.MetadataPolicies object, applied to the statements of all
+  # subordinates unless overridden per subordinate. Missing file = skipped
+  # with a warning; malformed = startup error.
+  # metadata_policy_file: /data/metadata_policy.json
+
+  # Entity configuration lifetime (default 24h).
+  configuration_lifetime: 1h
+
+  # Federation entity metadata published in the entity configuration.
+  federation_entity_metadata:
+    display_name: "TA Example"
+    contacts:
+      - admin@example.org
+
+  # General fallback additional claims for subordinates without their own
+  # claims (subordinates.json[].additional_claims wins).
+  # subordinate_additional_claims:
+  #   - claim: some_claim
+  #     value: 42
+  #     crit: false
+
+endpoints:
+  # Global endpoint authentication defaults. References ONLY entity IDs —
+  # the anchors' definitions must be provisioned in trust_anchors.json
+  # (a missing anchor is a boot error).
+  auth:
+    all_require_auth: false
+    # trust_anchors: ["https://root.example.org"]
+
+  fetch:
+    path: /fetch
+    # auth_enabled: true            # requires auth_trust_anchors or
+    # auth_trust_anchors: ["https://root.example.org"]
+    # statement_lifetime: 600000s   # subordinate statement lifetime; default 600000s (≈ 1 week)
+
+  list:
+    path: /subordinates
+
+  resolve:
+    path: /resolve
+    # allowed_trust_anchors: ["https://root.example.org"]   # must be provisioned
+    # grace_period: 5m
+    # proactive_resolver:
+    #   enabled: false
+    #   concurrency_limit: 0
+    #   queue_size: 0
+    #   response_storage: { dir: /data/resolve, store_json: false, store_jwt: false }
+
+  trust_mark_status:
+    path: /trust_mark_status
+
+  trust_mark_list:
+    path: /trust_mark_list
+
+  # The trust mark issuance endpoint. Specs are provisioned in
+  # trust_mark_specs.json (NOT here).
+  trust_mark:
+    path: /trust_mark
+
+  historical_keys:
+    path: /historical_keys
+
+  enroll:
+    path: /enroll
+    checker:
+      type: none
+      # config: {}
+
+  enroll_request:
+    path: /enroll_request
+
+  trust_mark_request:
+    path: /trust_mark_request
+
+  entity_collection:
+    path: /collection
+    # allowed_trust_anchors: ["https://root.example.org"]
+    # interval: 24h
+    disable_delegated_collection: false
+
+  # Subordinate JWKS update endpoints (work with the file-backed
+  # subordinate store; no DB refresher needed).
+  jwks_update:
+    path: /jwks_update
+
+  jwks_update_trigger:
+    path: /jwks_update_trigger

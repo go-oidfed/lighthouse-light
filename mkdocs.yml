@@ -1,0 +1,64 @@
+# LightHouse-light documentation — mkdocs-material (same stack and styling as
+# the upstream LightHouse docs, see ../lighthouse/mkdocs.yml).
+site_name: LightHouse-light
+site_url: https://go-oidfed.github.io/lighthouse-light/
+site_author: go-oidfed
+copyright: Copyright &copy; 2026 go-oidfed contributors
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      primary: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      primary: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.indexes
+    - toc.integrate
+    - content.code.copy
+    - content.tooltips
+  navigation_depth: 4
+  hljs_languages:
+    - shell session
+    - yaml
+    - json
+    - go
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - attr_list
+  - abbr
+  - admonition
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Configuration: config.md
+  - Data directory: data-directory.md
+  - Signing: signing.md
+  - Endpoints: endpoints.md
+  - Deployment: deployment.md
+
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/admonitions.css

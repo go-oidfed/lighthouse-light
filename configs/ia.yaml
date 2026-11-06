@@ -1,0 +1,32 @@
+# Minimal IA instance for the docker compose batch demo.
+entity_id: http://localhost:7673
+data_dir: /data
+logging: { level: info, format: json }
+
+server: { ip_listen: 0.0.0.0, port: 7672 }
+
+signing:
+  auto_generate_keys: true
+  filesystem: { key_dir: /data/keys }
+  alg: ES512
+
+federation_data:
+  # (Optional) point ia at ta by provisioning authority_hints.json:
+  # {"hints": [{"entity_id": "http://ta:7672"}]} in ia's data dir.
+  federation_entity_metadata:
+    display_name: "Demo IA"
+    contacts: ["admin@example.org"]
+  configuration_lifetime: 1h
+
+endpoints:
+  fetch: { path: /fetch }
+  resolve: { path: /resolve }
+  trust_mark: { path: /trust_mark }
+  trust_mark_status: { path: /trust_mark_status }
+  trust_mark_list: { path: /trust_mark_list }
+  historical_keys: { path: /historical_keys }
+  enroll_request: { path: /enroll_request }
+  trust_mark_request: { path: /trust_mark_request }
+  entity_collection: { path: /collection }
+  jwks_update: { path: /jwks_update }
+  jwks_update_trigger: { path: /jwks_update_trigger }

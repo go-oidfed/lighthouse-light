@@ -1,0 +1,28 @@
+# Batch demo: two lighthouse-light instances, each with its own config and its
+# own data dir. One instance per data dir is the lighthouse single-process
+# contract. TLS is terminated at a reverse proxy, not here.
+#
+#   docker compose up -d
+#   curl -fsS http://localhost:7672/.well-known/openid-federation | cut -d. -f2 | base64 -d
+services:
+  ta:
+    build:
+      context: ..
+      dockerfile: lighthouse-light/Dockerfile
+    volumes:
+      - ./configs/ta.yaml:/config.yaml:ro
+      - ./docker-data/ta:/data
+    ports:
+      - "7672:7672"
+    restart: unless-stopped
+
+  ia:
+    build:
+      context: ..
+      dockerfile: lighthouse-light/Dockerfile
+    volumes:
+      - ./configs/ia.yaml:/config.yaml:ro
+      - ./docker-data/ia:/data
+    ports:
+      - "7673:7672"
+    restart: unless-stopped

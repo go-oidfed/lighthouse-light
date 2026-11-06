@@ -1,0 +1,13 @@
+# ProperDocs build output
+site/
+
+# Local docs tooling
+.venv/
+__pycache__/
+
+/.idea/
+
+# Runtime artifacts (one instance per data dir; never commit state)
+data/
+docker-data/
+lighthouse-light-bin

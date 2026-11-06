@@ -1,0 +1,8 @@
+.git
+.gitignore
+docker-data
+lighthouse-light-bin
+data
+testdata
+*.log
+*.tmp
