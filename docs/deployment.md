@@ -59,8 +59,8 @@ One instance per data dir (LightHouse is single-process by design). Either
 `docker compose` or a loop:
 
 ```sh
-# compose (see docker-compose.yaml; ta on :7672, ia on :7673, each with its
-# own data dir under ./docker-data)
+# compose (see docker-compose.yaml — ships configs/ia.yaml as the demo
+# instance on :7673; its data dir lives under ./docker-data)
 docker compose up -d
 
 # or a loop over configs — each instance needs its own data dir
@@ -74,13 +74,14 @@ for cfg in configs/*.yaml; do
 done
 ```
 
-`docker-compose.yaml` ships `configs/ta.yaml` (entity ID
-`http://localhost:7672`) and `configs/ia.yaml` (entity ID
-`http://localhost:7673`, pointing at ta as authority hint); both serve
-`:7672` inside the container, mapped to the host ports above. Verify:
+`configs/ia.yaml` is the one shipped config (entity ID
+`http://localhost:7673`); it serves `:7672` inside the container, mapped to
+the host port above. For a multi-instance mesh, copy the config per entity,
+set a distinct `entity_id` (and host port), and provision
+`authority_hints.json` / `trust_anchors.json` in each data dir — there is no
+second baked-in config file. Verify:
 
 ```sh
-curl -fsS http://localhost:7672/.well-known/openid-federation | cut -d. -f2 | base64 -d
 curl -fsS http://localhost:7673/.well-known/openid-federation | cut -d. -f2 | base64 -d
 ```
 
@@ -105,6 +106,16 @@ Two options:
 
    `entity_id` must match the certificate's hostname.
 
+   !!! note "Redirect location is derived from the request `Host` header"
+       The HTTP→HTTPS redirect keeps whatever host (`Host` header, including
+       port) the client sent, e.g. a request to `http://localhost:8080/…`
+       redirects to `https://localhost:8080/…`. This is correct for standard
+       deployments where the public origin has no port (hostname-only
+       `Host`, e.g. `https://lighthouse.example.org`). When a non-443 host
+       port is mapped to container port 80/443 (or a reverse proxy in front
+       forwards a ported `Host`), the redirect points at the wrong port —
+       terminate TLS at the proxy in that case.
+
 2. **Reverse proxy** — recommended when you want managed certificates or
    HTTPS on a non-443 port: terminate TLS at Caddy, Traefik, or nginx and
    keep the instance on plain HTTP:
@@ -126,7 +137,7 @@ a proxy.
 
 ### Boot lifecycle
 
-- Startup: load + validate config → open the 11 data files (corrupt or
+- Startup: load + validate config → open the 9 data files (corrupt or
   legacy-format files abort, naming the file) → generate/load keys (auto
   generation on first boot) → create the entity → register endpoints →
   start listening.
@@ -165,6 +176,32 @@ nothing re-seeds content from the config. General settings change via
   see the auth section in [endpoints.md](endpoints.md).
 - **`kid` changes after restart** — expected after rotation; the auto
   generated key itself is stable across restarts.
+
+### Running the container as a non-root user
+
+The image runs as root by default, so files the server writes into a
+bind-mounted data dir (`data_dir/*.json`, `key_dir/`) are root-owned — a
+non-root operator then needs `sudo` (or `docker exec … chown`) to edit them
+while the instance is stopped. To run as your own user, add `user` to the
+compose service and pre-chown the bind mounts:
+
+```yaml
+services:
+  ia:
+    # ...
+    user: "${UID}:${GID}"
+```
+
+With `user` set, the data dir must be owned by that uid/gid before start
+(`chown -R "$UID:$GID" docker-data/ia`). Two notes:
+
+- **`docker compose build` does not need root** — it runs in the Docker
+  daemon; the `user:` directive only affects the running container, not the
+  build. Steps inside the Dockerfile that need root (e.g. `apt-get`) run as
+  root within the build regardless.
+- The one privileged operation that legitimately needs an extra capability is
+  binding container port 443 for native TLS from a non-root process: use
+  `cap_add: [NET_BIND_SERVICE]`, or terminate TLS at a reverse proxy.
 
 ### Logging
 

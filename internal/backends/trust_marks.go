@@ -2,6 +2,7 @@ package backends
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/go-oidfed/lighthouse/storage/model"
 )
@@ -19,6 +20,12 @@ func newTrustMarksStore(state *trustMarkState) *TrustMarksStore {
 }
 
 func (s *TrustMarksStore) writeStatus(trustMarkType, entityID string, status model.Status) error {
+	// Request handlers may pass zero-copy views into the (reused) request
+	// buffer (fiber binds query/body strings without copying). Clone before
+	// persisting so rows created here cannot be corrupted by a later request
+	// reusing that buffer.
+	trustMarkType = strings.Clone(trustMarkType)
+	entityID = strings.Clone(entityID)
 	s.state.mu.Lock()
 	defer s.state.mu.Unlock()
 	rec := s.state.findSpecByIdent(trustMarkType)

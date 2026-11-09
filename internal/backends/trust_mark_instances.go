@@ -2,6 +2,7 @@ package backends
 
 import (
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/go-oidfed/lighthouse/storage/model"
@@ -55,6 +56,16 @@ func (s *TrustMarkInstancesStore) Create(instance *model.IssuedTrustMarkInstance
 	instance.CreatedAt = now
 	instance.UpdatedAt = now
 	cp := *instance
+	// Clone request-derived string fields (Subject, TrustMarkType): request
+	// handlers bind query/body values as zero-copy views into the reused
+	// request buffer, so the values would be corrupted when a later request
+	// reuses that buffer — including rows later persisted back to the file.
+	cp.JTI = strings.Clone(instance.JTI)
+	cp.Subject = strings.Clone(instance.Subject)
+	cp.TrustMarkType = strings.Clone(instance.TrustMarkType)
+	// handlers bind query/body values as zero-copy views into the reused
+	// request buffer, so the values would be corrupted when a later request
+	// reuses that buffer — including rows later persisted back to the file.
 	s.rows = append(s.rows, cp)
 	s.byJTI[cp.JTI] = &s.rows[len(s.rows)-1]
 	return saveLocked(s.file, s.rows)

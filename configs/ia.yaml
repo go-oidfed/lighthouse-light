@@ -11,8 +11,11 @@ signing:
   alg: ES512
 
 federation_data:
-  # (Optional) point ia at ta by provisioning authority_hints.json:
-  # {"hints": [{"entity_id": "http://ta:7672"}]} in ia's data dir.
+  # (Optional) point ia at its superior by provisioning authority_hints.json
+  # as an array of hint rows in ia's data dir (see docs/data-directory.md;):
+  # [
+  #   { "entity_id": "http://localhost:7672", "description": "my superior" }
+  # ]
   federation_entity_metadata:
     display_name: "Demo IA"
     contacts: ["admin@example.org"]

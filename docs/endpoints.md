@@ -12,24 +12,52 @@ There are 13 endpoint types. Each is enabled by its config section
 
 ## Endpoint types
 
-| Type | Config section | What it serves | Requires (provisioning) |
-| --- | --- | --- | --- |
-| Fetch | `endpoints.fetch` | `GET/POST /fetch?sub=...` — a signed entity statement for the subordinate (subject must be active; unknown → 404 JSON) | `subordinates.json` |
-| Subordinate listing | `endpoints.list` | listing of subordinate entity IDs | `subordinates.json` + `trust_mark_subjects.json` |
-| Resolve | `endpoints.resolve` | trust-chain resolve (`.../resolve?sub=...&type=...`) up to a trust anchor | `allowed_trust_anchors` (must exist in `trust_anchors.json`); optional proactive resolver |
-| Trust mark status | `endpoints.trust_mark_status` | `POST` with a `trust_mark` JWT → signed status-response JWT | `trust_mark_instances.json` |
-| Trust mark listing | `endpoints.trust_mark_list` | `GET ?trust_mark_type=...` → JSON array of entities holding a valid issued mark | `trust_mark_instances.json` |
-| Trust mark issuance | `endpoints.trust_mark` | issues a trust mark JWT for an eligible subject (`sub`, `trust_mark_type`); non-eligible → JSON `not_eligible` | `trust_mark_subjects.json` + `trust_mark_specs.json` (specs, incl. eligibility) + `trust_mark_instances.json` |
-| Trust mark request | `endpoints.trust_mark_request` | `GET ?sub=&trust_mark_type=` — marks the subject as pending | `trust_mark_subjects.json` |
-| Historical keys | `endpoints.historical_keys` | JSON JWKS of all published keys incl. rotation history | none (served from the key dir) |
-| Enroll | `endpoints.enroll` | enroll endpoint with an entity checker (`checker.type`/`config`; checker trust anchors must exist in `trust_anchors.json`) | `subordinates.json` + optional checker |
-| Enroll request | `endpoints.enroll_request` | staged enrollment request | `subordinates.json` |
-| Entity collection | `endpoints.entity_collection` | `GET` — collected entities; periodic + paginated modes; `disable_delegated_collection` suppresses advertised sub-collection endpoints | `allowed_trust_anchors`; `interval` → periodic collection |
-| JWKS update | `endpoints.jwks_update` | `POST` a signed JWK Set (`application/jwk-set+jwt`, `iss==sub`) from a subordinate replacing its stored keys (signature verified against the currently stored keys) | `subordinates.json` |
-| JWKS update trigger | `endpoints.jwks_update_trigger` | tells this entity to re-fetch a subordinate's keys from its entity configuration | `subordinates.json` |
+| Type                | Config section                  | What it serves                                                                                                                                                                                                                            | Requires (provisioning)                                                                                       |
+|---------------------|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| Fetch               | `endpoints.fetch`               | `GET/POST /fetch?sub=...` — a signed entity statement for the subordinate (subject must be active; unknown → 404 JSON)                                                                                                                    | `subordinates.json`                                                                                           |
+| Subordinate listing | `endpoints.list`                | listing of subordinate entity IDs                                                                                                                                                                                                         | `subordinates.json` + `trust_mark_subjects.json`                                                              |
+| Resolve             | `endpoints.resolve`             | trust-chain resolve (`.../resolve?sub=...&trust_anchor=...`, optional `type`) up to a trust anchor                                                                                                                                        | `allowed_trust_anchors` (must exist in `trust_anchors.json`); optional proactive resolver                     |
+| Trust mark status   | `endpoints.trust_mark_status`   | `POST` with a `trust_mark` JWT → signed status-response JWT (`active` when the signature verifies and the JTI is known and not revoked/expired; an unknown JTI with a valid signature falls back to `active` based on expiry — see below) | `trust_mark_instances.json`                                                                                   |
+| Trust mark listing  | `endpoints.trust_mark_list`     | `GET ?trust_mark_type=...` → JSON array of entities holding a valid issued mark                                                                                                                                                           | `trust_mark_instances.json`                                                                                   |
+| Trust mark issuance | `endpoints.trust_mark`          | issues a trust mark JWT for an eligible subject (`sub`, `trust_mark_type`); non-eligible → JSON `not_eligible`                                                                                                                            | `trust_mark_subjects.json` + `trust_mark_specs.json` (specs, incl. eligibility) + `trust_mark_instances.json` |
+| Trust mark request  | `endpoints.trust_mark_request`  | `GET ?sub=&trust_mark_type=` — marks the subject as pending                                                                                                                                                                               | `trust_mark_subjects.json`                                                                                    |
+| Historical keys     | `endpoints.historical_keys`     | signed JWK Set (`jwk-set+jwt`) with the **retired** keys — revoked and expired keys only; the currently valid key is *not* included and the set is empty until the first rotation                                                         | none (served from the key dir)                                                                                |
+| Enroll              | `endpoints.enroll`              | enroll endpoint with an entity checker (`checker.type`/`config`; checker trust anchors must exist in `trust_anchors.json`)                                                                                                                | `subordinates.json` + optional checker                                                                        |
+| Enroll request      | `endpoints.enroll_request`      | staged enrollment request                                                                                                                                                                                                                 | `subordinates.json`                                                                                           |
+| Entity collection   | `endpoints.entity_collection`   | `GET` — collected entities; periodic + paginated modes; `disable_delegated_collection` suppresses advertised sub-collection endpoints                                                                                                     | `allowed_trust_anchors`; `interval` → periodic collection                                                     |
+| JWKS update         | `endpoints.jwks_update`         | `POST` a signed JWK Set (`application/jwk-set+jwt`, `iss==sub`) from a subordinate replacing its stored keys (signature verified against the currently stored keys)                                                                       | `subordinates.json`                                                                                           |
+| JWKS update trigger | `endpoints.jwks_update_trigger` | tells this entity to re-fetch a subordinate's keys from its entity configuration                                                                                                                                                          | `subordinates.json`                                                                                           |
 
 The entity configuration advertises a `federation_*_endpoint` for every
 registered endpoint, including the JWKS-update and trigger endpoints.
+
+### Trust mark status semantics
+
+`trust_mark_status` returns a signed status JWT with `status`: `active`,
+`expired`, or `invalid`:
+
+- The trust mark's signature must verify against this entity's federation
+  keys and `iss` must be this entity — otherwise `invalid`.
+- With a valid signature, the JTI is looked up in `trust_mark_instances.json`
+  (`revoked` wins, then `expired`, then `active`).
+- A validly-signed mark whose JTI is **not** tracked (unknown JTI, e.g. after
+  the instances file was reset) falls back to expiry-only: `active` while
+  unexpired. There is no 404 for signature-valid marks.
+- The `revoked` flag on an instance row **is honored**: set
+  `"revoked": true` on a row in `trust_mark_instances.json` (the file is
+  loaded at boot, so restart afterwards), and `trust_mark_status` answers
+  `revoked` for that JTI — `revoked` takes precedence over `active`/`expired`.
+  The trust-mark listing and `HasActiveInstance` already exclude revoked
+  rows.
+- No runtime **endpoint** writes `revoked: true`: the store's
+  `ChangeSubjectStatus` (which revokes a subject's instances when it is
+  blocked/inactivated) is not wired to any endpoint, and blocking a subject
+  in `trust_mark_subjects.json` only refuses new issuance. Revocation is an
+  operator action on the file, as with all content here.
+
+The trust mark **listing** answers exclusively against the instance rows
+(non-revoked, non-expired subjects), so an entity appears there only after a
+mark was actually issued to it.
 
 ## Endpoint authentication
 

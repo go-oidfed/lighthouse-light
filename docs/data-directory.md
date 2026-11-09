@@ -117,6 +117,17 @@ keys. A row may opt into automatic key refresh.
     unless you are bootstrapping via the flag — an anchor with the flag but
     no `jwks` boots empty and is filled from the first successful poll.
 
+    Two caveats:
+
+    - The **initial poll runs synchronously at startup**, before the HTTP
+      server listens: if the anchor's entity configuration cannot be fetched
+      at that moment (unreachable host, transient error), startup **fails**.
+      The anchor should be reachable and stable before the instance boots.
+    - An anchor whose `entity_id` equals the instance's **own** entity ID is
+      **skipped with a warning** (its keys are already authoritative locally;
+      the refresh loop could never boot, since the initial poll would hit the
+      not-yet-listening server).
+
 ### `subordinates.json`
 
 The subordinates for this instance. Each row may define its own metadata,
@@ -236,23 +247,40 @@ listing — `trust_mark_status` answers against these rows.
 [
   {
     "jti": "ca1a1536-dda2-4431-bf09-2cad16f16151",
-    "created_at": "2026-11-04T09:00:00Z",
-    "expires_at": "2026-11-04T10:00:00Z",
+    "created_at": 1793975573,
+    "updated_at": 1793975573,
+    "expires_at": 1793979173,
     "revoked": false,
-    "trust_mark_subject_id": "6620087642536422927",
+    "trust_mark_subject_id": 8098244717992667663,
     "trust_mark_type": "https://example.org/trustmark",
     "subject": "https://sub.example.org"
   }
 ]
 ```
 
+`trust_mark_subject_id` is a **content-addressed numeric ID**, derived with
+FNV-1a-64 (low 63 bits) from `trust_mark_type` + the subject's `entity_id` —
+the same derivation both `trust_mark_specs.json` and
+`trust_mark_subjects.json` use for their rows, so an issued instance links to
+the subject row across restarts. You never write or read it.
+
+It is `0` when the subject has **no row** in `trust_mark_subjects.json`.
+That only happens under the checker-based eligibility modes
+(`check_only`, `db_or_check`, `custom`), where a checker — not a subject row
+— grants eligibility. Under `db_only` (the default) and `db_and_check` the
+subject row is the eligibility source, so a mark is issued only to an
+entity that has an active subject row and the ID is always set.
+
 !!! info "Blocking a subject does not revoke outstanding instances"
     A status change in `trust_mark_subjects.json` only refuses **new**
     issuance; it is picked up at the next boot and never rewrites this file.
-    An instance is marked `revoked` only when a subject's status is changed
-    to blocked/inactive through the store API (`ChangeSubjectStatus`), which
-    is not wired to any endpoint in lighthouse-light. Until then `trust_mark_status`
-    answers active for instances that have not expired.
+    The `revoked` flag on an instance row is honored by `trust_mark_status`
+    (and the listing excludes revoked rows), so revoke an issued mark by
+    setting `"revoked": true` on its row here and restarting — no endpoint
+    writes it (`ChangeSubjectStatus`, which revokes on subject block, is not
+    wired in lighthouse-light). `trust_mark_status` answers `active` for
+    signature-valid marks whose JTI is not tracked — see
+    [endpoints.md](endpoints.md#trust-mark-status-semantics).
 
 ### `published_trust_marks.json`
 

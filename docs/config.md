@@ -726,6 +726,11 @@ Misconfiguration is reported at startup with the offending field:
 - `endpoint X: auth_enabled requires auth_trust_anchors or endpoints.auth.trust_anchors`
 - `endpoints.auth.trust_anchors: trust anchor "..." is not defined in trust_anchors.json`
   (and the equivalent per-endpoint checks)
+- `signing.key_rotation.interval (...) is smaller than federation_data.configuration_lifetime (...)`
+  (rotation interval below the entity-configuration lifetime; see
+  [signing.md](signing.md))
+- `signing key file "..." does not exist (auto_generate_keys is disabled)` /
+  `no signing key found in key dir ... (auto_generate_keys is disabled)`
 
 Data-file load errors (also fatal, filename included) are listed in
 [data-directory.md](data-directory.md).

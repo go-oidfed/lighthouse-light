@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	"github.com/rs/zerolog"
@@ -68,6 +69,15 @@ func main() {
 		log.Fatal().Err(err).Msg("invalid trust anchor references")
 	}
 
+	// Fail fast when auto key generation is disabled but no signing key is
+	// present: the upstream lighthouse KMS would panic on a nil signer
+	// instead of reporting a configuration error.
+	if !cfg.Signing.AutoGenerateKeys {
+		if err := checkSigningKeyPresent(cfg); err != nil {
+			log.Fatal().Err(err).Msg("no signing key available")
+		}
+	}
+
 	// KMS and public-key backend are fixed to the filesystem (user decision):
 	// signing keys persist in the configured key dir; private keys never
 	// appear in data files.
@@ -102,7 +112,6 @@ func main() {
 
 	setupTrustMarkIssuer(lh, backs)
 
-	// No banner art (the plan: log JSON/console lines only).
 	lh.LogoBanner = false
 	lh.VersionBanner = false
 
@@ -124,6 +133,7 @@ func main() {
 	}
 
 	log.Info().Msg("Added Endpoints")
+
 	log.Info().
 		Str("entity_id", cfg.EntityID).
 		Int("port", cfg.Server.Port).
@@ -152,6 +162,32 @@ func main() {
 	lh.Start()
 	<-done
 	log.Info().Msg("lighthouse-light stopped")
+}
+
+// checkSigningKeyPresent verifies that a filesystem signing key exists for
+// the configured key backend. It is only called when auto_generate_keys is
+// disabled, so a missing key is a configuration error rather than a nil
+// signer panic inside lighthouse.
+func checkSigningKeyPresent(cfg *config.Config) error {
+	fs := cfg.Signing.FileSystemBackend
+	if fs.KeyFile != "" {
+		path := cfg.Resolve(fs.KeyFile)
+		if info, err := os.Stat(path); err == nil && !info.IsDir() {
+			return nil
+		}
+		return fmt.Errorf("signing key file %q does not exist (auto_generate_keys is disabled)", path)
+	}
+	dir := cfg.Resolve(fs.KeyDir)
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return fmt.Errorf("signing key dir %q is not readable: %w (auto_generate_keys is disabled)", dir, err)
+	}
+	for _, e := range entries {
+		if !e.IsDir() && strings.HasSuffix(e.Name(), ".pem") {
+			return nil
+		}
+	}
+	return fmt.Errorf("no signing key found in key dir %q (expected a <kid>.pem file; auto_generate_keys is disabled)", dir)
 }
 
 // setupTrustMarkIssuer configures the trust mark spec provider backed by the
@@ -185,6 +221,12 @@ func setupTrustAnchorRepo(lh *lighthouse.LightHouse, backs model.Backends) error
 // trust_anchors.json via the file store (which implements oidfed.JWKStorage);
 // the in-memory repo sees the updates live (shared TrustAnchor pointers).
 // Stopped automatically by lh.Stop().
+//
+// Anchors whose entity ID equals this instance's own entity ID are skipped
+// with a warning: the refresher performs a synchronous initial poll before
+// the HTTP server starts listening, so a self-referential anchor could never
+// boot (the poll hits itself before the listener exists). The instance's own
+// keys are already authoritative locally; there is nothing to refresh.
 func startTAJWKSRefresher(lh *lighthouse.LightHouse, backs model.Backends) {
 	repo := lh.TrustAnchorRepo()
 	if repo == nil || len(repo.AllWithJWKSUpdate()) == 0 {
@@ -196,8 +238,34 @@ func startTAJWKSRefresher(lh *lighthouse.LightHouse, backs model.Backends) {
 		log.Warn().Msg("Trust anchor store does not implement JWK storage; TA JWKS refresher disabled")
 		return
 	}
-	refresher, err := lighthouse.SetupTAJWKSRefresher(repo, jwkStorage)
+	// Mirror lighthouse.SetupTAJWKSRefresher but with a self-anchor guard:
+	// exclude anchors whose entity ID is this instance's own, then build and
+	// start the refresher for the remainder.
+	ownID := lh.FederationEntity.EntityID()
+	anchors := repo.AllWithJWKSUpdate()
+	filtered := anchors[:0]
+	var skipped []string
+	for i := range anchors {
+		if anchors[i].EntityID == ownID {
+			skipped = append(skipped, anchors[i].EntityID)
+			continue
+		}
+		filtered = append(filtered, anchors[i])
+	}
+	if len(skipped) > 0 {
+		log.Warn().
+			Strs("entity_ids", skipped).
+			Msg("trust anchors with enable_jwks_update=true reference this instance's own entity ID; jwks refresh disabled for them (nothing to fetch locally)")
+	}
+	if len(filtered) == 0 {
+		log.Debug().Msg("No external trust anchors with enable_jwks_update=true; skipping TA JWKS refresher")
+		return
+	}
+	refresher, err := oidfed.NewTAJWKSRefresher(&filtered, jwkStorage)
 	if err != nil {
+		log.Fatal().Err(err).Msg("failed to create TA JWKS refresher")
+	}
+	if err := refresher.Start(); err != nil {
 		log.Fatal().Err(err).Msg("failed to start TA JWKS refresher")
 	}
 	lh.SetTAJWKSRefresher(refresher)

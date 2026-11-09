@@ -1,21 +1,16 @@
-# Batch demo: two lighthouse-light instances, each with its own config and its
-# own data dir. One instance per data dir is the lighthouse single-process
-# contract. TLS is terminated at a reverse proxy, not here.
+# Demo: one lighthouse-light instance with its own config and its own data
+# dir. One instance per data dir is the lighthouse single-process contract.
+# TLS is terminated at a reverse proxy, not here.
 #
 #   docker compose up -d
-#   curl -fsS http://localhost:7672/.well-known/openid-federation | cut -d. -f2 | base64 -d
+#   curl -fsS http://localhost:7673/.well-known/openid-federation | cut -d. -f2 | base64 -d
+#
+# A federation mesh = one instance per config/data dir: copy configs/ia.yaml
+# per entity, set a distinct entity_id (and host port), and provision
+# authority_hints.json / trust_anchors.json in each data dir
+# (see docs/deployment.md and docs/data-directory.md). There is deliberately
+# no second baked-in config file: ta.yaml was a near-duplicate of ia.yaml.
 services:
-  ta:
-    build:
-      context: ..
-      dockerfile: lighthouse-light/Dockerfile
-    volumes:
-      - ./configs/ta.yaml:/config.yaml:ro
-      - ./docker-data/ta:/data
-    ports:
-      - "7672:7672"
-    restart: unless-stopped
-
   ia:
     build:
       context: ..

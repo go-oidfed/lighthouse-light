@@ -9,6 +9,7 @@ import (
 	"strings"
 	"testing"
 	"time"
+	"unsafe"
 
 	"gorm.io/datatypes"
 
@@ -845,6 +846,41 @@ func TestTrustMarkInstancesStoreLifecycle(t *testing.T) {
 	}
 	if st, _ := inst.GetStatus("a"); st != model.TrustMarkStatusRevoked {
 		t.Fatalf("a should be revoked after RevokeBySubjectID, got %v", st)
+	}
+}
+
+// TestTrustMarkInstancesStoreRejectsAliasedStrings guards against the
+// zero-copy request-binding corruption: fiber binds query/body strings as
+// views into a reused request buffer, so an instance row must not retain
+// those views. Corrupting the source bytes after Create must not change what
+// the store returns (nor what it later persists).
+func TestTrustMarkInstancesStoreRejectsAliasedStrings(t *testing.T) {
+	backs := newTestBackends(t)
+	inst := backs.TrustMarkInstances
+
+	// Simulate a request buffer: a []byte that the "next request" rewrites.
+	// The zero-copy view below aliases buf exactly like fiber's
+	// utils.UnsafeString does for query/body values.
+	buf := []byte("http://localhost:7674")
+	subj := unsafe.String(&buf[0], len(buf))
+	typ := "https://example.org/trustmark"
+
+	if err := inst.Create(&model.IssuedTrustMarkInstance{
+		JTI: "aliased-1", TrustMarkType: typ, Subject: subj, ExpiresAt: int(time.Now().Unix()) + 3600,
+	}); err != nil {
+		t.Fatalf("create: %v", err)
+	}
+
+	// "Next request" reuses the buffer with a different subject.
+	copy(buf, "http://localhost:7673")
+
+	active, err := inst.ListActiveSubjects(typ)
+	if err != nil || !reflect.DeepEqual(active, []string{"http://localhost:7674"}) {
+		t.Fatalf("ListActiveSubjects after buffer reuse = %v, %v; want the original subject", active, err)
+	}
+	got, err := inst.GetByJTI("aliased-1")
+	if err != nil || got.Subject != "http://localhost:7674" {
+		t.Fatalf("GetByJTI after buffer reuse = %+v, %v; want the original subject", got, err)
 	}
 }
 

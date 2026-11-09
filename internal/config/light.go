@@ -258,6 +258,30 @@ func (c *Config) Validate() error {
 		return fmt.Errorf("server.admin_tls is not supported (there is no admin API)")
 	}
 
+	// Key rotation with an interval below the entity-configuration lifetime is
+	// a configuration error: rotated-out keys expire while ECs/statements
+	// signed with them are still valid, and (with the default announcement
+	// lead time) the rotation loop degenerates into generating keys in a tight
+	// loop, unboundedly growing the key dir and the published JWKS.
+	for name, interval := range map[string]duration.DurationOption{
+		"signing.key_rotation.interval":           c.Signing.KeyRotation.Interval,
+		"signing.automatic_key_rollover.interval": c.Signing.AutomaticKeyRollover.Interval,
+	} {
+		d := interval.Duration()
+		if d <= 0 {
+			continue // rotation disabled
+		}
+		lifetime := c.FederationData.ConfigurationLifetime.Duration()
+		if lifetime > 0 && d < lifetime {
+			return fmt.Errorf(
+				"%s (%s) is smaller than federation_data.configuration_lifetime (%s): "+
+					"rotated keys expire while entity configurations and statements signed with them are still valid "+
+					"(see docs/signing.md)",
+				name, d, lifetime,
+			)
+		}
+	}
+
 	// Endpoint auth pre-check: an auth-enabled endpoint needs auth trust
 	// anchors (per-endpoint or global). The anchors themselves must exist in
 	// trust_anchors.json; that is checked at boot by
