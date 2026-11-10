@@ -23,12 +23,11 @@ at load time.
 ## Quickstart (2 minutes)
 
 ```sh
-# from the go-oidfed/ workspace root (build context must include ../lighthouse)
-docker build -f lighthouse-light/Dockerfile -t oidfed/lighthouse-light .
+docker build -t oidfed/lighthouse-light .
 
 mkdir -p data
 docker run --rm -p 7672:7672 \
-  -v "$PWD/lighthouse-light/config-example.yaml:/config.yaml:ro" \
+  -v "$PWD/config-example.yaml:/config.yaml:ro" \
   -v "$PWD/data:/data" \
   oidfed/lighthouse-light /config.yaml
 

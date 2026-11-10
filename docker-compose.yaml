@@ -12,9 +12,7 @@
 # no second baked-in config file: ta.yaml was a near-duplicate of ia.yaml.
 services:
   ia:
-    build:
-      context: ..
-      dockerfile: lighthouse-light/Dockerfile
+    build: .
     volumes:
       - ./configs/ia.yaml:/config.yaml:ro
       - ./docker-data/ia:/data

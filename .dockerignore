@@ -1,8 +1,11 @@
 .git
 .gitignore
-docker-data
-lighthouse-light-bin
-data
+.github
+.idea
+site
 testdata
+data
+docker-data
 *.log
 *.tmp
+lighthouse-light
