@@ -1,60 +1,58 @@
-name: docs
+name: Deploy MkDocs documentation
 
-# Build the mkdocs-material documentation (same stack as the upstream
-# lighthouse docs) and deploy it to GitHub Pages.
+# Build the mkdocs-material documentation with mike and deploy it to the
+# gh-pages branch (same approach as the upstream lighthouse docs).
 #
-# Prerequisite: repository Settings → Pages → Source: "GitHub Actions".
-# The site lives at https://<owner>.github.io/lighthouse-light/ (see
-# site_url in mkdocs.yml).
+# Prerequisite: repository Settings → Pages → Source: "Deploy from a branch",
+# Branch: gh-pages, path: / (root). The site lives at
+# https://go-oidfed.github.io/lighthouse-light/ (see site_url in mkdocs.yml).
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
     paths:
-      - "docs/**"
-      - "mkdocs.yml"
-      - ".github/workflows/docs.yml"
-  pull_request:
-    paths:
-      - "docs/**"
-      - "mkdocs.yml"
-      - ".github/workflows/docs.yml"
-  workflow_dispatch:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/docs.yml'
+    tags:
+      - 'v*'
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  contents: write  # Needed to push to gh-pages
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install mkdocs
-        run: pip install "mkdocs>=1.6" "mkdocs-material>=9.5"
-      - name: Build documentation
-        run: mkdocs build
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
   deploy:
-    needs: build
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # mike needs full history for gh-pages branch
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MkDocs and mike
+        run: |
+          pip install "mkdocs>=1.6" "mkdocs-material>=9.5" mike
+
+      - name: Configure git for mike
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy docs (main)
+        run: |
+          mike deploy --push main
+          mike set-default --push main
+
+      - name: Deploy docs (versioned release tag)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          MINOR="${VERSION%.*}"
+          mike deploy --push "${VERSION}" "${MINOR}" --update-aliases
+          mike set-default --push main

@@ -51,6 +51,11 @@ markdown_extensions:
 plugins:
   - search
 
+extra:
+  version:
+    provider: mike
+    default: main
+
 nav:
   - Home: index.md
   - Configuration: config.md
