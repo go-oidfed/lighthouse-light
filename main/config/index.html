@@ -1,0 +1,2002 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="go-oidfed">
+      
+      
+        <link rel="canonical" href="https://go-oidfed.github.io/lighthouse-light/main/config/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../data-directory/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Configuration - LightHouse-light</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/admonitions.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuration-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LightHouse-light" class="md-header__button md-logo" aria-label="LightHouse-light" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LightHouse-light
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../data-directory/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Data directory
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../signing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Signing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../endpoints/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Endpoints
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../deployment/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Deployment
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LightHouse-light" class="md-nav__button md-logo" aria-label="LightHouse-light" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    LightHouse-light
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entity_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        entity_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        data_dir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logging
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="logging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logginglevel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logging.level
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loggingformat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logging.format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serverip_listen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.ip_listen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serverport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.port
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servertls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.tls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="server.tls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servertlsenabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.tls.enabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servertlsredirect_http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.tls.redirect_http
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servertlscert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.tls.cert
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servertlskey" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.tls.key
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servertrusted_proxies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.trusted_proxies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serverforwarded_ip_header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.forwarded_ip_header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servercors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="server.cors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servercorsenabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors.enabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servercorsallow_origins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors.allow_origins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servercorsallow_methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors.allow_methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servercorsallow_headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors.allow_headers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servercorsallow_credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors.allow_credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servercorsexpose_headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors.expose_headers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servercorsmax_age" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.cors.max_age
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#signing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="signing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signingauto_generate_keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.auto_generate_keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingfilesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.filesystem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="signing.filesystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signingfilesystemkey_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.filesystem.key_dir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingfilesystemkey_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.filesystem.key_file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingalg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.alg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingrsa_key_len" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.rsa_key_len
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingkey_rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.key_rotation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="signing.key_rotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signingkey_rotationenabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.key_rotation.enabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingkey_rotationinterval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.key_rotation.interval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingkey_rotationoverlap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.key_rotation.overlap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingkey_rotationkey_announcement_lead_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.key_rotation.key_announcement_lead_time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signingkey_rotationkey_announcement_lead_time_ec_multiplier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        signing.key_rotation.key_announcement_lead_time_ec_multiplier
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federation_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="federation_data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#federation_datametadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation_dataconstraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation_datametadata_policy_crit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.metadata_policy_crit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation_datametadata_policy_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.metadata_policy_file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation_dataconfiguration_lifetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.configuration_lifetime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation_datafederation_entity_metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.federation_entity_metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation_datasubordinate_additional_claims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.subordinate_additional_claims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation_dataextra_entity_configuration_claims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        federation_data.extra_entity_configuration_claims
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpointsauthall_require_auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        endpoints.auth.all_require_auth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpointsauthtrust_anchors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        endpoints.auth.trust_anchors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint sections
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-errors-fail-fast-never-silent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration errors (fail fast, never silent)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="configuration-reference">Configuration reference<a class="headerlink" href="#configuration-reference" title="Permanent link">&para;</a></h1>
+<p>The config file is located by the first match of, in order:</p>
+<ol>
+<li>the first CLI argument (e.g. <code>lighthouse-light /etc/lighthouse/config.yaml</code>);</li>
+<li>the <code>$LH_CONFIG_FILE</code> environment variable;</li>
+<li><code>config.yaml</code> in the first existing of the discovery locations:<ul>
+<li><code>.</code></li>
+<li><code>config</code></li>
+<li><code>/config</code></li>
+<li><code>/lighthouse/config</code></li>
+<li><code>/lighthouse</code></li>
+<li><code>/data/config</code>,</li>
+<li><code>/data</code></li>
+<li><code>/etc/lighthouse</code></li>
+</ul>
+</li>
+</ol>
+<p>If none matches, startup fails with a resolution error naming the searched
+locations.</p>
+<p>Relative paths in the config resolve against the config file's directory
+(<code>signing.filesystem.key_file/key_dir</code>, <code>federation_data.metadata_policy_file</code>,
+<code>server.tls.cert/key</code>).</p>
+<p>A runnable commented example ships as <code>config-example.yaml</code>.</p>
+<hr />
+<h2 id="entity_id"><code>entity_id</code><a class="headerlink" href="#entity_id" title="Permanent link">&para;</a></h2>
+<p><span class="badge badge-purple" title="Value Type">URL</span>
+<span class="badge badge-red" title="If this option is required or optional">required</span></p>
+<p>The OpenID Federation Entity Identifier for this instance.
+This is a URI that uniquely identifies your entity within the federation and is used as the <code>iss</code> and <code>sub</code> claims in the Entity Configuration JWT.</p>
+<p>The entity ID is typically the base URL where your federation endpoints are served.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://ta.example.org</span>
+</code></pre></div>
+</details>
+<h2 id="data_dir"><code>data_dir</code><a class="headerlink" href="#data_dir" title="Permanent link">&para;</a></h2>
+<p><span class="badge badge-purple" title="Value Type">directory path</span>
+<span class="badge badge-blue" title="Default Value">/data</span></p>
+<p><strong>All federation content and runtime state</strong> lives here as plain JSON files
+(9 files, see <a href="../data-directory/">data-directory.md</a>). One instance per data
+dir.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">data_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data</span>
+</code></pre></div>
+</details>
+<h2 id="logging"><code>logging</code><a class="headerlink" href="#logging" title="Permanent link">&para;</a></h2>
+<p>Under the <code>logging</code> config option the logging behavior is configured.
+LightHouse-light writes its logs to stdout (no log files, no banner options).</p>
+<h3 id="logginglevel"><code>logging.level</code><a class="headerlink" href="#logginglevel" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">enum</span>
+<span class="badge badge-blue" title="Default Value">info</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>level</code> option sets the minimal log level that should be logged.</p>
+<p>Valid values are:</p>
+<ul>
+<li><code>trace</code></li>
+<li><code>debug</code></li>
+<li><code>info</code></li>
+<li><code>warn</code></li>
+<li><code>error</code></li>
+<li><code>fatal</code></li>
+<li><code>panic</code></li>
+</ul>
+<h3 id="loggingformat"><code>logging.format</code><a class="headerlink" href="#loggingformat" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">enum</span>
+<span class="badge badge-blue" title="Default Value">json</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>format</code> option selects the output format for the logs written to stdout.</p>
+<p>Valid values are:</p>
+<ul>
+<li><code>json</code> — structured JSON output for machine parsing (default)</li>
+<li><code>console</code> — human-friendly console output</li>
+</ul>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">logging</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">info</span>
+<span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">console</span>
+</code></pre></div>
+</details>
+<h2 id="server"><code>server</code><a class="headerlink" href="#server" title="Permanent link">&para;</a></h2>
+<p>Under the <code>server</code> config option the (HTTP) server is configured. Native TLS
+is supported; without it (default) terminate TLS at a reverse proxy
+(Caddy/Traefik/nginx) — see <a href="../deployment/">deployment.md</a>.</p>
+<h3 id="serverip_listen"><code>server.ip_listen</code><a class="headerlink" href="#serverip_listen" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">string</span>
+<span class="badge badge-blue" title="Default Value">0.0.0.0</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>ip_listen</code> config option sets the network address to which the server
+binds. If omitted, <code>0.0.0.0</code> is used. Usually <code>127.0.0.1</code> when a reverse proxy
+is in front; <code>0.0.0.0</code> in containers.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ip_listen</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1</span>
+</code></pre></div>
+</details>
+<h3 id="serverport"><code>server.port</code><a class="headerlink" href="#serverport" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">integer</span>
+<span class="badge badge-blue" title="Default Value">7672</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>port</code> config option sets the port at which the server starts and listens
+for incoming requests. It is only used if <code>tls</code> is not enabled; if <code>tls</code> is
+enabled, port <code>443</code> is used (and optionally port <code>80</code>).</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4242</span>
+</code></pre></div>
+</details>
+<h3 id="servertls"><code>server.tls</code><a class="headerlink" href="#servertls" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">object / mapping</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Configuration for native HTTPS. If <code>tls</code> is enabled, port <code>443</code> is used (and,
+with <code>redirect_http</code>, port <code>80</code> redirects to HTTPS). Managing certificates
+yourself (certbot / a CA) is fine; so is leaving TLS to a reverse proxy.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tls</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">redirect_http</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data/tls/cert.pem</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data/tls/key.pem</span>
+</code></pre></div>
+</details>
+<h4 id="servertlsenabled"><code>server.tls.enabled</code><a class="headerlink" href="#servertlsenabled" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">boolean</span>
+<span class="badge badge-blue" title="Default Value">false</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Enable HTTPS instead of plain HTTP. <code>cert</code> and <code>key</code> must be set when enabled
+(validation error <code>server.tls: cert and key are required when enabled</code>
+otherwise).</p>
+<h4 id="servertlsredirect_http"><code>server.tls.redirect_http</code><a class="headerlink" href="#servertlsredirect_http" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">boolean</span>
+<span class="badge badge-blue" title="Default Value">false</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>redirect_http</code> option determines if port <code>80</code> should be redirected to
+port <code>443</code>.</p>
+<h4 id="servertlscert"><code>server.tls.cert</code><a class="headerlink" href="#servertlscert" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">file path</span>
+<span class="badge badge-red" title="If this option is required or optional">required for TLS</span></p>
+<p>Path to the TLS certificate (PEM). Relative paths resolve against the config
+file's directory.</p>
+<h4 id="servertlskey"><code>server.tls.key</code><a class="headerlink" href="#servertlskey" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">file path</span>
+<span class="badge badge-red" title="If this option is required or optional">required for TLS</span></p>
+<p>Path to the TLS private key (PEM). Relative paths resolve against the config
+file's directory.</p>
+<h3 id="servertrusted_proxies"><code>server.trusted_proxies</code><a class="headerlink" href="#servertrusted_proxies" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">list of strings</span>
+<span class="badge badge-blue" title="Default Value">[]</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>trusted_proxies</code> option configures a list of trusted proxies by IP
+address or network range (CIDR notation).</p>
+<p>If the server runs behind a proxy or load balancer, certain header information
+may be sent using special <code>X-Forwarded-*</code> headers (e.g. the client's real IP
+address). If set, such header information is only honored when the request
+comes via one of the trusted proxies. If unset, the information is always read
+from the headers, which might be spoofed.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">trusted_proxies</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"10.0.0.0/8"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"172.16.0.0/12"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"192.168.0.0/16"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"fc00::/7"</span>
+</code></pre></div>
+</details>
+<h3 id="serverforwarded_ip_header"><code>server.forwarded_ip_header</code><a class="headerlink" href="#serverforwarded_ip_header" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">string</span>
+<span class="badge badge-blue" title="Default Value">X-Forwarded-For</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>forwarded_ip_header</code> option specifies which HTTP header to use for
+getting the client's real IP address when behind a proxy.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">forwarded_ip_header</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">X-Real-IP</span>
+</code></pre></div>
+</details>
+<h3 id="servercors"><code>server.cors</code><a class="headerlink" href="#servercors" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">object / mapping</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Configuration for CORS (Cross-Origin Resource Sharing) on the server. CORS
+allows web browsers to make requests to the federation endpoints from
+different origins, useful when building web applications that consume them.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cors</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">allow_origins</span><span class="p">:</span><span class="w"> </span><span class="s">"*"</span>
+<span class="w">    </span><span class="nt">allow_methods</span><span class="p">:</span><span class="w"> </span><span class="s">"GET,POST,HEAD,PUT,DELETE,PATCH"</span>
+<span class="w">    </span><span class="nt">allow_headers</span><span class="p">:</span><span class="w"> </span><span class="s">"Origin,Content-Type,Accept"</span>
+<span class="w">    </span><span class="nt">allow_credentials</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">max_age</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3600</span>
+</code></pre></div>
+</details>
+<h4 id="servercorsenabled"><code>server.cors.enabled</code><a class="headerlink" href="#servercorsenabled" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">boolean</span>
+<span class="badge badge-blue" title="Default Value">false</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Enables or disables the CORS middleware. When disabled, no CORS headers are
+sent and cross-origin requests from browsers are blocked.</p>
+<h4 id="servercorsallow_origins"><code>server.cors.allow_origins</code><a class="headerlink" href="#servercorsallow_origins" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">string</span>
+<span class="badge badge-blue" title="Default Value">*</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Comma-separated list of allowed origins, or <code>*</code> to allow all origins.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cors</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">allow_origins</span><span class="p">:</span><span class="w"> </span><span class="s">"https://example.com,https://app.example.com"</span>
+</code></pre></div>
+</details>
+<h4 id="servercorsallow_methods"><code>server.cors.allow_methods</code><a class="headerlink" href="#servercorsallow_methods" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">string</span>
+<span class="badge badge-blue" title="Default Value">GET,POST,HEAD,PUT,DELETE,PATCH</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Comma-separated list of allowed HTTP methods.</p>
+<h4 id="servercorsallow_headers"><code>server.cors.allow_headers</code><a class="headerlink" href="#servercorsallow_headers" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">string</span>
+<span class="badge badge-blue" title="Default Value">empty (uses Fiber defaults)</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Comma-separated list of allowed request headers.</p>
+<h4 id="servercorsallow_credentials"><code>server.cors.allow_credentials</code><a class="headerlink" href="#servercorsallow_credentials" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">boolean</span>
+<span class="badge badge-blue" title="Default Value">false</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Indicates whether the request can include user credentials like cookies or
+HTTP authentication.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When <code>allow_credentials</code> is <code>true</code>, <code>allow_origins</code> cannot be <code>*</code>; you
+must specify explicit origins.</p>
+</div>
+<h4 id="servercorsexpose_headers"><code>server.cors.expose_headers</code><a class="headerlink" href="#servercorsexpose_headers" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">string</span>
+<span class="badge badge-blue" title="Default Value">empty</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Comma-separated list of headers that browsers are allowed to access.</p>
+<h4 id="servercorsmax_age"><code>server.cors.max_age</code><a class="headerlink" href="#servercorsmax_age" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">integer</span>
+<span class="badge badge-blue" title="Default Value">0</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>How long (in seconds) browsers should cache preflight request results. <code>0</code>
+means no caching.</p>
+<h2 id="signing"><code>signing</code><a class="headerlink" href="#signing" title="Permanent link">&para;</a></h2>
+<p>Under the <code>signing</code> config option the key management and signatures are
+configured. There are <strong>no <code>kms</code> / <code>pk_backend</code> / <code>pkcs11</code>/HSM options</strong>:
+key management is fixed to the filesystem (see <a href="../signing/">signing.md</a>).</p>
+<h3 id="signingauto_generate_keys"><code>signing.auto_generate_keys</code><a class="headerlink" href="#signingauto_generate_keys" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">boolean</span>
+<span class="badge badge-blue" title="Default Value">true</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>When set to <code>true</code>, a signing key for the configured algorithm is generated at
+startup if none exists. When set to <code>false</code>, startup fails if the required
+private key is not present.</p>
+<h3 id="signingfilesystem"><code>signing.filesystem</code><a class="headerlink" href="#signingfilesystem" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">object / mapping</span>
+<span class="badge badge-red" title="If this option is required or optional">required (key_file or key_dir)</span></p>
+<p>Configuration for the filesystem private-key storage. Relative paths resolve
+against the config dir.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">signing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">filesystem</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">key_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data/keys</span>
+</code></pre></div>
+</details>
+<h4 id="signingfilesystemkey_dir"><code>signing.filesystem.key_dir</code><a class="headerlink" href="#signingfilesystemkey_dir" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">directory path</span>
+<span class="badge badge-red" title="If this option is required or optional">required, unless <code>key_file</code> is given</span></p>
+<p>The <code>key_dir</code> option specifies the path to a directory that contains the
+private signing key(s). Keys are stored using the naming convention <code>&lt;kid&gt;.pem</code>.</p>
+<h4 id="signingfilesystemkey_file"><code>signing.filesystem.key_file</code><a class="headerlink" href="#signingfilesystemkey_file" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">file path</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <code>key_file</code> option can be used as an alternative to <code>key_dir</code> if only a
+single signing key is used and no key rotation happens. Use <code>key_dir</code> instead
+when rotation is needed.</p>
+<p>At least one of <code>key_file</code> / <code>key_dir</code> is required (validation error
+<code>signing.filesystem: key_file or key_dir must be set</code> otherwise).</p>
+<h3 id="signingalg"><code>signing.alg</code><a class="headerlink" href="#signingalg" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">enum</span>
+<span class="badge badge-blue" title="Default Value">ES512</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The signing algorithm to use for Entity Configurations, Entity Statements, and
+Trust Marks. Changing it takes effect at the next start.</p>
+<p>Supported values include:</p>
+<ul>
+<li><strong>ECDSA</strong> — <code>ES256</code>, <code>ES384</code>, <code>ES512</code></li>
+<li><strong>secp256k1</strong> — <code>ES256K</code></li>
+<li><strong>EdDSA</strong> — <code>Ed25519</code>, <code>Ed448</code></li>
+<li><strong>RSA</strong> — <code>RS256</code>, <code>RS384</code>, <code>RS512</code>, <code>PS256</code>, <code>PS384</code>, <code>PS512</code></li>
+<li><strong>ML-DSA (post-quantum)</strong> — <code>ML-DSA-44</code>, <code>ML-DSA-65</code>, <code>ML-DSA-87</code></li>
+<li><strong>Composite (PQC-hybrid)</strong> — <code>ML-DSA-44-ES256</code>, <code>ML-DSA-65-ES256</code>,
+  <code>ML-DSA-87-ES384</code> (ML-DSA + ECDSA), <code>ML-DSA-44-Ed25519</code>,
+  <code>ML-DSA-65-Ed25519</code>, <code>ML-DSA-87-Ed448</code> (ML-DSA + EdDSA)</li>
+</ul>
+<h3 id="signingrsa_key_len"><code>signing.rsa_key_len</code><a class="headerlink" href="#signingrsa_key_len" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">integer</span>
+<span class="badge badge-blue" title="Default Value">2048</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The RSA key length (in bits) used when generating RSA-based signing keys. Only
+relevant when the signing algorithm is RSA-based.</p>
+<h3 id="signingkey_rotation"><code>signing.key_rotation</code><a class="headerlink" href="#signingkey_rotation" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">object / mapping</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Configuration for automatic signing key rotation. When enabled, new signing
+keys are generated according to the configured interval and both current and
+next public keys are published. Requires <code>key_dir</code> (a single <code>key_file</code> cannot
+rotate).</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">signing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">key_rotation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30d</span>
+<span class="w">    </span><span class="nt">overlap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1h</span>
+</code></pre></div>
+</details>
+<h4 id="signingkey_rotationenabled"><code>signing.key_rotation.enabled</code><a class="headerlink" href="#signingkey_rotationenabled" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">boolean</span>
+<span class="badge badge-blue" title="Default Value">false</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Enables automatic key rotation.</p>
+<h4 id="signingkey_rotationinterval"><code>signing.key_rotation.interval</code><a class="headerlink" href="#signingkey_rotationinterval" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">duration</span>
+<span class="badge badge-blue" title="Default Value">~1 week</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The interval at which keys are rotated. This defines the lifetime of each key.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The interval should not be smaller than the lifetime of Entity
+Configurations, Entity Statements, Trust Marks, or other JWTs signed with
+the federation key.</p>
+</div>
+<h4 id="signingkey_rotationoverlap"><code>signing.key_rotation.overlap</code><a class="headerlink" href="#signingkey_rotationoverlap" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">duration</span>
+<span class="badge badge-blue" title="Default Value">1 hour</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The overlap period between the current and next key. During this window both
+keys are valid, and the server transitions to using the new key somewhere in
+the middle of the period.</p>
+<h4 id="signingkey_rotationkey_announcement_lead_time"><code>signing.key_rotation.key_announcement_lead_time</code><a class="headerlink" href="#signingkey_rotationkey_announcement_lead_time" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">duration</span>
+<span class="badge badge-blue" title="Default Value">max(5 × entity-configuration lifetime, 24h)</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The <strong>key announcement lead time</strong> controls how far in advance a new key is
+published in the JWKS before it becomes the active signing key, giving clients
+time to fetch and cache the new key before the old key is retired.</p>
+<p>If unset, the lead time is resolved as:</p>
+<ol>
+<li><code>key_announcement_lead_time_ec_multiplier</code> × entity-configuration lifetime,
+   if the multiplier is <code>&gt; 0</code>;</li>
+<li>otherwise the fixed <code>key_announcement_lead_time</code>, if <code>&gt; 0</code>;</li>
+<li>otherwise <code>max(5 × entity-configuration lifetime, 24h)</code>.</li>
+</ol>
+<p>The result is clamped to at least one entity-configuration lifetime.</p>
+<h4 id="signingkey_rotationkey_announcement_lead_time_ec_multiplier"><code>signing.key_rotation.key_announcement_lead_time_ec_multiplier</code><a class="headerlink" href="#signingkey_rotationkey_announcement_lead_time_ec_multiplier" title="Permanent link">&para;</a></h4>
+<p><span class="badge badge-purple" title="Value Type">float</span>
+<span class="badge badge-blue" title="Default Value">0</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Multiplier for the entity-configuration lifetime used to compute the
+announcement lead time. Takes precedence over
+<code>key_announcement_lead_time</code> when <code>&gt; 0</code>.</p>
+<h2 id="federation_data"><code>federation_data</code><a class="headerlink" href="#federation_data" title="Permanent link">&para;</a></h2>
+<p>General (entity-level) federation settings. These settings apply to the entity
+as a whole; content collections (subordinates, trust anchors, authority hints,
+trust marks, issuers/owners) live in the data files, not in this config — see
+<a href="../data-directory/">data-directory.md</a>.</p>
+<p>Metadata-like content exists at <strong>two levels</strong> — a general (entity-level)
+value in the config and a per-subordinate override in <code>subordinates.json</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>General (entity) level — applies to ALL subordinates</th>
+<th>Per-subordinate — wins over general</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Metadata</td>
+<td><code>federation_data.metadata</code> (config)</td>
+<td><code>subordinates.json[] .metadata</code></td>
+</tr>
+<tr>
+<td>Metadata policies</td>
+<td><code>federation_data.metadata_policy_file</code> (config)</td>
+<td><code>subordinates.json[] .metadata_policy</code></td>
+</tr>
+<tr>
+<td>Constraints</td>
+<td><code>federation_data.constraints</code> (config)</td>
+<td><code>subordinates.json[] .constraints</code></td>
+</tr>
+<tr>
+<td>Additional claims</td>
+<td><code>federation_data.subordinate_additional_claims</code> (config)</td>
+<td><code>subordinates.json[] .additional_claims</code></td>
+</tr>
+<tr>
+<td>Entity-config extra claims</td>
+<td><code>federation_data.extra_entity_configuration_claims</code> (config)</td>
+<td>— (entity configuration, not per subordinate)</td>
+</tr>
+</tbody>
+</table>
+<p>A subordinate that defines its own value for a field uses it; otherwise the
+general value applies. The general fallback is resolved at read time and is
+<strong>never written into <code>subordinates.json</code></strong>. Per-subordinate claims become
+<code>extra</code> claims in the signed statement; <code>crit: true</code> marks them as critical
+extensions.</p>
+<h3 id="federation_datametadata"><code>federation_data.metadata</code><a class="headerlink" href="#federation_datametadata" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">object / mapping</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>General (entity-level) metadata applied to the statements of <strong>all</strong>
+subordinates, unless a subordinate defines its own (<code>subordinates.json</code>
+<code>metadata</code>). The object maps entity types to their claims, per the OpenID
+Federation Specification.</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">federation_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">openid_provider</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">organization_name</span><span class="p">:</span><span class="w"> </span><span class="s">"Example</span><span class="nv"> </span><span class="s">Organization"</span>
+</code></pre></div>
+</details>
+<h3 id="federation_dataconstraints"><code>federation_data.constraints</code><a class="headerlink" href="#federation_dataconstraints" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">object / mapping</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Constraints object included in subordinate statements, as defined in the OpenID
+Federation Specification. Applied to the statements of <strong>all</strong> subordinates
+unless a subordinate defines its own (<code>subordinates.json</code> <code>constraints</code>).</p>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">federation_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">constraints</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_path_len</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">naming_constraints</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">permitted</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">".example.com"</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">excluded</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"east.example.com"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">allowed_entity_types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"openid_provider"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"openid_relying_party"</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+</details>
+<h3 id="federation_datametadata_policy_crit"><code>federation_data.metadata_policy_crit</code><a class="headerlink" href="#federation_datametadata_policy_crit" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">list of strings</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Critical metadata policy operators as per the OpenID Federation Specification
+(e.g. <code>["one_of"]</code>). Only operators actually used in a statement's policy are
+marked critical.</p>
+<h3 id="federation_datametadata_policy_file"><code>federation_data.metadata_policy_file</code><a class="headerlink" href="#federation_datametadata_policy_file" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">file path</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Path (relative → config dir) to a JSON file holding the <strong>general metadata
+policies applicable to all subordinates</strong>, as defined in the OpenID Federation
+Specification (the document format <code>{"&lt;entity_type&gt;": {"&lt;operator&gt;": {...}}}</code>).
+Overridden per subordinate by <code>subordinates.json[] .metadata_policy</code>. A missing
+file is skipped with a warning; a malformed file fails startup.</p>
+<h3 id="federation_dataconfiguration_lifetime"><code>federation_data.configuration_lifetime</code><a class="headerlink" href="#federation_dataconfiguration_lifetime" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">duration</span>
+<span class="badge badge-blue" title="Default Value">24h</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>The lifetime of the published Entity Configuration JWT. This defines how long
+it is valid before it must be re-fetched (its <code>exp</code>).</p>
+<h3 id="federation_datafederation_entity_metadata"><code>federation_data.federation_entity_metadata</code><a class="headerlink" href="#federation_datafederation_entity_metadata" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">object / mapping</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Entity metadata included in the <code>metadata</code> claim of the Entity Configuration
+for the <code>federation_entity</code> entity type.</p>
+<p>Federation endpoint URLs (fetch, list, resolve, …) are added to this metadata
+automatically from <code>endpoints.*</code>; you do not need to list them here.</p>
+<p>Common fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display_name</code></td>
+<td>string</td>
+<td>Display name of the entity</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string</td>
+<td>Description of the entity</td>
+</tr>
+<tr>
+<td><code>keywords</code></td>
+<td>list of strings</td>
+<td>Keywords for the entity</td>
+</tr>
+<tr>
+<td><code>contacts</code></td>
+<td>list of strings</td>
+<td>Contact email addresses</td>
+</tr>
+<tr>
+<td><code>logo_uri</code></td>
+<td>uri</td>
+<td>Logo URI</td>
+</tr>
+<tr>
+<td><code>policy_uri</code></td>
+<td>uri</td>
+<td>Policy URI</td>
+</tr>
+<tr>
+<td><code>information_uri</code></td>
+<td>uri</td>
+<td>Information URI</td>
+</tr>
+<tr>
+<td><code>organization_name</code></td>
+<td>string</td>
+<td>Organization name</td>
+</tr>
+<tr>
+<td><code>organization_uri</code></td>
+<td>uri</td>
+<td>Organization URI</td>
+</tr>
+<tr>
+<td>anything else</td>
+<td>json</td>
+<td>Additional metadata fields</td>
+</tr>
+</tbody>
+</table>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">federation_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">federation_entity_metadata</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="s">"TA</span><span class="nv"> </span><span class="s">Example"</span>
+<span class="w">    </span><span class="nt">organization_name</span><span class="p">:</span><span class="w"> </span><span class="s">"Example</span><span class="nv"> </span><span class="s">Organization"</span>
+<span class="w">    </span><span class="nt">contacts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"admin@example.org"</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+</details>
+<h3 id="federation_datasubordinate_additional_claims"><code>federation_data.subordinate_additional_claims</code><a class="headerlink" href="#federation_datasubordinate_additional_claims" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">list of objects</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>General fallback additional claims included in the statement of every
+subordinate that has no claims of its own. Each claim can be individually
+marked as critical. A subordinate with its own claims
+(<code>subordinates.json[] .additional_claims</code>) keeps them.</p>
+<p>Each claim object has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>claim</code></td>
+<td>string</td>
+<td>Claim name</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>any</td>
+<td>Claim value (any JSON type)</td>
+</tr>
+<tr>
+<td><code>crit</code></td>
+<td>boolean</td>
+<td>Whether the claim is marked as critical</td>
+</tr>
+</tbody>
+</table>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">federation_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">subordinate_additional_claims</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">claim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom_scope</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">"read</span><span class="nv"> </span><span class="s">write"</span>
+<span class="w">      </span><span class="nt">crit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+</details>
+<h3 id="federation_dataextra_entity_configuration_claims"><code>federation_data.extra_entity_configuration_claims</code><a class="headerlink" href="#federation_dataextra_entity_configuration_claims" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">list of objects</span>
+<span class="badge badge-blue" title="Default Value">[]</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Additional claims included in the <strong>entity configuration</strong> — they are added
+as extra claims of the signed entity-configuration JWT payload (top-level
+members alongside <code>metadata</code>, <code>authority_hints</code>, …). Each claim can be
+individually marked as critical. The <code>lighthouse_version</code> claim is appended
+automatically. Seeded into the in-memory additional claims store at boot —
+there is no <code>additional_claims.json</code> file.</p>
+<p>Each claim object has the same fields as
+<a href="#federation_datasubordinate_additional_claims"><code>subordinate_additional_claims</code></a>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>claim</code></td>
+<td>string</td>
+<td>Claim name</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>any</td>
+<td>Claim value (any JSON type)</td>
+</tr>
+<tr>
+<td><code>crit</code></td>
+<td>boolean</td>
+<td>Whether the claim is marked as critical</td>
+</tr>
+</tbody>
+</table>
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">federation_data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">extra_entity_configuration_claims</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">claim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">"y"</span>
+<span class="w">      </span><span class="nt">crit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+</details>
+<h2 id="endpoints"><code>endpoints</code><a class="headerlink" href="#endpoints" title="Permanent link">&para;</a></h2>
+<p>Registers the 13 federation endpoint types (see <a href="../endpoints/">endpoints.md</a>;
+the types map to the OpenID Federation specification as <code>fetch</code> §8.1, <code>list</code>
+§8.2, <code>resolve</code> §8.3, <code>trust_mark_status</code> §8.4, <code>trust_mark_listing</code> §8.5,
+<code>trust_mark</code> §8.6, <code>historical_keys</code> §8.7).</p>
+<p>Each enabled endpoint takes:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>URL path under which the endpoint is served. Set to <code>null</code>/empty to disable the endpoint.</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>External URL published in the Entity Configuration. If not set, derived from <code>&lt;entity_id&gt;&lt;path&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>auth_enabled</code></td>
+<td>When <code>true</code>, requires <code>private_key_jwt</code> client authentication.</td>
+</tr>
+<tr>
+<td><code>auth_trust_anchors</code></td>
+<td>Trust anchor entity IDs used to verify client assertions (when <code>auth_enabled</code> is <code>true</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>An endpoint is registered when <code>path</code> or <code>url</code> is set; an endpoint with both
+empty is skipped.</p>
+<h3 id="endpointsauthall_require_auth"><code>endpoints.auth.all_require_auth</code><a class="headerlink" href="#endpointsauthall_require_auth" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">boolean</span>
+<span class="badge badge-blue" title="Default Value">false</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Forces <code>auth_enabled</code> on every endpoint.</p>
+<h3 id="endpointsauthtrust_anchors"><code>endpoints.auth.trust_anchors</code><a class="headerlink" href="#endpointsauthtrust_anchors" title="Permanent link">&para;</a></h3>
+<p><span class="badge badge-purple" title="Value Type">list of entity IDs</span>
+<span class="badge badge-blue" title="Default Value">[]</span>
+<span class="badge badge-green" title="If this option is required or optional">optional</span></p>
+<p>Global fallback <code>auth_trust_anchors</code> for auth-enabled endpoints. <strong>Entity IDs
+only</strong> — the anchors' definitions (JWKS) must be provisioned in
+<code>trust_anchors.json</code>; a reference to a missing anchor is a boot error.</p>
+<h3 id="endpoint-sections">Endpoint sections<a class="headerlink" href="#endpoint-sections" title="Permanent link">&para;</a></h3>
+<p>Each of the 13 sections takes the common fields above plus:</p>
+<table>
+<thead><tr><th>Section</th><th>Extra keys</th></tr></thead>
+<tbody>
+<tr><td class="highlight"><code>endpoints.fetch</code></td><td><code>statement_lifetime</code> (duration — the lifetime of Entity Statements issued by the Fetch endpoint; default <code>600000s</code> ≈ 1 week)</td></tr>
+<tr><td class="highlight"><code>endpoints.list</code></td><td>—</td></tr>
+<tr><td class="highlight"><code>endpoints.resolve</code></td><td><code>allowed_trust_anchors</code> (must exist in <code>trust_anchors.json</code>), <code>use_entity_collection_allowed_trust_anchors</code> (use the collection's anchor list instead), <code>grace_period</code>, <code>time_elapsed_grace_factor</code>, <code>proactive_resolver.{enabled, concurrency_limit, queue_size, response_storage.{dir, store_json, store_jwt}}</code></td></tr>
+<tr><td class="highlight"><code>endpoints.trust_mark_status</code></td><td>—</td></tr>
+<tr><td class="highlight"><code>endpoints.trust_mark_list</code></td><td>—</td></tr>
+<tr><td class="highlight"><code>endpoints.trust_mark</code></td><td>— (trust mark <strong>specs</strong> are provisioned in <code>trust_mark_specs.json</code>, not here)</td></tr>
+<tr><td class="highlight"><code>endpoints.historical_keys</code></td><td>—</td></tr>
+<tr><td class="highlight"><code>endpoints.enroll</code></td><td><code>checker</code> (<code>{type, config}</code>; checker trust anchors must exist in <code>trust_anchors.json</code>)</td></tr>
+<tr><td class="highlight"><code>endpoints.enroll_request</code></td><td>—</td></tr>
+<tr><td class="highlight"><code>endpoints.trust_mark_request</code></td><td>—</td></tr>
+<tr><td class="highlight"><code>endpoints.entity_collection</code></td><td><code>allowed_trust_anchors</code>, <code>interval</code>, <code>concurrency_limit</code>, <code>pagination_limit</code>, <code>disable_delegated_collection</code> (suppresses the advertised sub-collection endpoints)</td></tr>
+<tr><td class="highlight"><code>endpoints.jwks_update</code></td><td>—</td></tr>
+<tr><td class="highlight"><code>endpoints.jwks_update_trigger</code></td><td>—</td></tr>
+</tbody>
+</table>
+
+<details class="file">
+<summary>config.yaml</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">endpoints</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">auth</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">all_require_auth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">trust_anchors</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"https://root.example.org"</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">fetch</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/fetch</span>
+<span class="w">    </span><span class="nt">auth_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">jwks_update</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/jwks_update</span>
+<span class="w">  </span><span class="nt">jwks_update_trigger</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/jwks_update_trigger</span>
+</code></pre></div>
+</details>
+<h2 id="configuration-errors-fail-fast-never-silent">Configuration errors (fail fast, never silent)<a class="headerlink" href="#configuration-errors-fail-fast-never-silent" title="Permanent link">&para;</a></h2>
+<p>Misconfiguration is reported at startup with the offending field:</p>
+<ul>
+<li><code>entity_id is required</code></li>
+<li><code>signing.filesystem: key_file or key_dir must be set</code></li>
+<li><code>server.tls: cert and key are required when enabled</code></li>
+<li><code>server.admin_tls is not supported (there is no admin API)</code></li>
+<li><code>endpoint X: auth_enabled requires auth_trust_anchors or endpoints.auth.trust_anchors</code></li>
+<li><code>endpoints.auth.trust_anchors: trust anchor "..." is not defined in trust_anchors.json</code>
+  (and the equivalent per-endpoint checks)</li>
+<li><code>signing.key_rotation.interval (...) is smaller than federation_data.configuration_lifetime (...)</code>
+  (rotation interval below the entity-configuration lifetime; see
+  <a href="../signing/">signing.md</a>)</li>
+<li><code>signing key file "..." does not exist (auto_generate_keys is disabled)</code> /
+  <code>no signing key found in key dir ... (auto_generate_keys is disabled)</code></li>
+</ul>
+<p>Data-file load errors (also fatal, filename included) are listed in
+<a href="../data-directory/">data-directory.md</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 go-oidfed contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "toc.integrate", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "main", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
