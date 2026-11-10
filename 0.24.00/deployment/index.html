@@ -1,0 +1,986 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="go-oidfed">
+      
+      
+        <link rel="canonical" href="https://go-oidfed.github.io/lighthouse-light/0.24.00/deployment/">
+      
+      
+        <link rel="prev" href="../endpoints/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Deployment - LightHouse-light</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/admonitions.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deployment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LightHouse-light" class="md-header__button md-logo" aria-label="LightHouse-light" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LightHouse-light
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deployment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../config/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../data-directory/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Data directory
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../signing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Signing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../endpoints/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Endpoints
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Deployment
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LightHouse-light" class="md-nav__button md-logo" aria-label="LightHouse-light" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    LightHouse-light
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build variants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build variants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go-toolchain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Go toolchain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#single-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single instance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-of-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch of instances
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TLS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boot-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boot lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State &amp; backup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-change-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content change deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-container-as-a-non-root-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the container as a non-root user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h1>
+<h2 id="build-variants">Build variants<a class="headerlink" href="#build-variants" title="Permanent link">&para;</a></h2>
+<h3 id="docker-recommended">Docker (recommended)<a class="headerlink" href="#docker-recommended" title="Permanent link">&para;</a></h3>
+<p>Build from the <code>go-oidfed/</code> parent directory — the module uses a local
+replacement for the sibling <code>../lighthouse</code>, so the build context must
+include it:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/go-oidfed
+docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>lighthouse-light/Dockerfile<span class="w"> </span>-t<span class="w"> </span>oidfed/lighthouse-light<span class="w"> </span>.
+</code></pre></div>
+<ul>
+<li>Multi-stage build (<code>golang:1.27-bookworm</code> → <code>debian:stable-slim</code> with
+  <code>ca-certificates</code> + <code>curl</code>).</li>
+<li>Because the context is the parent directory, the <strong>workspace root's</strong>
+  <code>go-oidfed/.dockerignore</code> controls what enters the build; keep the
+  <code>lighthouse-light/docker-data</code> / <code>lighthouse-light/data</code> entries so
+  root-owned bind-mount dirs do not break the build (a root <code>.dockerignore</code>
+  ships with this repo; prune the entries if the layout changes).</li>
+<li><code>ENTRYPOINT ["/entrypoint.sh"]</code> forwards all arguments, so the config file
+  is the container command: <code>docker run oidfed/lighthouse-light /config.yaml</code>.</li>
+</ul>
+<h3 id="go-toolchain">Go toolchain<a class="headerlink" href="#go-toolchain" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>lighthouse-light
+go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>lighthouse-light<span class="w"> </span>./cmd/lighthouse-light
+./lighthouse-light<span class="w"> </span>config.yaml
+</code></pre></div>
+<p>Requires Go 1.27+ (the toolchain auto-switch selects 1.27.0) and a CGO-capable
+toolchain (the imported server links SQLite at build time even though no
+database is configured).</p>
+<h2 id="single-instance">Single instance<a class="headerlink" href="#single-instance" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>data
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>ll<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">7672</span>:7672<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/lighthouse-light/config-example.yaml:/config.yaml:ro"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/data:/data"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/keys:/keys"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>oidfed/lighthouse-light<span class="w"> </span>/config.yaml
+</code></pre></div>
+<p><code>config-example.yaml</code> sets <code>data_dir: /data</code> and <code>key_dir: /data/keys</code>;
+mount the data dir so state survives container replacement. Provision content
+by writing the <code>data/*.json</code> files (or let the instance materialize the empty
+files on first boot, then stop and edit — see
+<a href="../data-directory/">data-directory.md</a>).</p>
+<h2 id="batch-of-instances">Batch of instances<a class="headerlink" href="#batch-of-instances" title="Permanent link">&para;</a></h2>
+<p>One instance per data dir (LightHouse is single-process by design). Either
+<code>docker compose</code> or a loop:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># compose (see docker-compose.yaml — ships configs/ia.yaml as the demo</span>
+<span class="c1"># instance on :7673; its data dir lives under ./docker-data)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># or a loop over configs — each instance needs its own data dir</span>
+<span class="k">for</span><span class="w"> </span>cfg<span class="w"> </span><span class="k">in</span><span class="w"> </span>configs/*.yaml<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">name</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">"</span><span class="nv">$cfg</span><span class="s2">"</span><span class="w"> </span>.yaml<span class="k">)</span>
+<span class="w">  </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span><span class="s2">"ll-</span><span class="nv">$name</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/</span><span class="nv">$cfg</span><span class="s2">:/config.yaml:ro"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/docker-data/</span><span class="nv">$name</span><span class="s2">:/data"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/docker-data/</span><span class="nv">$name</span><span class="s2">/keys:/data/keys"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>oidfed/lighthouse-light<span class="w"> </span>/config.yaml
+<span class="k">done</span>
+</code></pre></div>
+<p><code>configs/ia.yaml</code> is the one shipped config (entity ID
+<code>http://localhost:7673</code>); it serves <code>:7672</code> inside the container, mapped to
+the host port above. For a multi-instance mesh, copy the config per entity,
+set a distinct <code>entity_id</code> (and host port), and provision
+<code>authority_hints.json</code> / <code>trust_anchors.json</code> in each data dir — there is no
+second baked-in config file. Verify:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>http://localhost:7673/.well-known/openid-federation<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d.<span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
+</code></pre></div>
+<h2 id="tls">TLS<a class="headerlink" href="#tls" title="Permanent link">&para;</a></h2>
+<p>Two options:</p>
+<ol>
+<li><strong>Native TLS</strong> — <code>server.tls</code> in the config: <code>enabled: true</code> plus <code>cert</code>
+   and <code>key</code> (PEM paths; relative to the config file). The server then
+   listens on <strong>port 443</strong>; with <code>redirect_http: true</code> it also serves port 80
+   and redirects to HTTPS. Manage the certificate yourself (certbot, a CA,
+   or your own PKI). Binding ports 80/443 needs root or <code>cap_net_bind_service</code>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tls</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">redirect_http</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data/tls/fullchain.pem</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data/tls/privkey.pem</span>
+</code></pre></div>
+<p><code>entity_id</code> must match the certificate's hostname.</p>
+<p>!!! note "Redirect location is derived from the request <code>Host</code> header"
+       The HTTP→HTTPS redirect keeps whatever host (<code>Host</code> header, including
+       port) the client sent, e.g. a request to <code>http://localhost:8080/…</code>
+       redirects to <code>https://localhost:8080/…</code>. This is correct for standard
+       deployments where the public origin has no port (hostname-only
+       <code>Host</code>, e.g. <code>https://lighthouse.example.org</code>). When a non-443 host
+       port is mapped to container port 80/443 (or a reverse proxy in front
+       forwards a ported <code>Host</code>), the redirect points at the wrong port —
+       terminate TLS at the proxy in that case.</p>
+<ol>
+<li><strong>Reverse proxy</strong> — recommended when you want managed certificates or
+   HTTPS on a non-443 port: terminate TLS at Caddy, Traefik, or nginx and
+   keep the instance on plain HTTP:</li>
+</ol>
+<div class="highlight"><pre><span></span><code># Caddyfile
+lighthouse.example.org {
+  reverse_proxy 127.0.0.1:7672
+}
+</code></pre></div>
+<p>In both cases set <code>entity_id</code> to the public <code>https://</code> URL so signed
+statements, published endpoint URLs and client <code>aud</code> claims line up. Keep
+<code>server.ip_listen</code> on <code>127.0.0.1</code> (or an internal network) when a proxy is in
+front; <code>trusted_proxies</code> / <code>forwarded_ip_header</code> matter only for logging with
+a proxy.</p>
+<h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
+<h3 id="boot-lifecycle">Boot lifecycle<a class="headerlink" href="#boot-lifecycle" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Startup: load + validate config → open the 9 data files (corrupt or
+  legacy-format files abort, naming the file) → generate/load keys (auto
+  generation on first boot) → create the entity → register endpoints →
+  start listening.</li>
+<li>Shutdown: <code>SIGTERM</code> / <code>SIGINT</code> → stop background loops (key rotation,
+  proactive resolver, eligibility/issued-mark caches, entity collectors) →
+  graceful close (observed clean shutdown ≈ 0.1 s, exit 0). Send one signal;
+  do not immediately SIGKILL.</li>
+</ul>
+<h3 id="state-backup">State &amp; backup<a class="headerlink" href="#state-backup" title="Permanent link">&para;</a></h3>
+<p>Backup = <code>data_dir/</code> + signing <code>key_dir/</code>. Both are plain files; rsync/tar
+while stopped is safe because all writes are tmp+rename. Restore = restore
+both into place, start.</p>
+<h3 id="content-change-deployment">Content change deployment<a class="headerlink" href="#content-change-deployment" title="Permanent link">&para;</a></h3>
+<p>Edit the <code>data_dir/*.json</code> files, restart. Content removal is removal —
+nothing re-seeds content from the config. General settings change via
+<code>config.yaml</code>; restart.</p>
+<h3 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>store &lt;x&gt;: failed to parse &lt;file&gt;</code></strong> at boot — corrupt JSON; fix the
+  file or delete it (a fresh empty file materializes; re-provision content).</li>
+<li><strong><code>store &lt;x&gt;: file uses the legacy numeric-ID format ...</code></strong> — the file was
+  written by LightHouse-light v0.1; re-provision
+  (<a href="../data-directory/">data-directory.md</a>).</li>
+<li><strong><code>store subordinates: ...: status cannot be active without keys</code></strong> — an
+  active subordinate row has no <code>jwks</code>; add keys or set <code>status: pending</code>.</li>
+<li><strong><code>trust anchor "..." is not defined in trust_anchors.json</code></strong> — an endpoint
+  references an anchor that is not provisioned; add it to the file.</li>
+<li><strong>404 on fetch</strong> — the subject is not in <code>subordinates.json</code> or its status
+  is blocked.</li>
+<li><strong>400 <code>invalid_request</code> on an auth endpoint</strong> — no <code>client_assertion</code> /
+  <code>client_assertion_type</code>, or the assertion's <code>iss</code>/<code>sub</code>/<code>aud</code> don't line up;
+  see the auth section in <a href="../endpoints/">endpoints.md</a>.</li>
+<li><strong><code>kid</code> changes after restart</strong> — expected after rotation; the auto
+  generated key itself is stable across restarts.</li>
+</ul>
+<h3 id="running-the-container-as-a-non-root-user">Running the container as a non-root user<a class="headerlink" href="#running-the-container-as-a-non-root-user" title="Permanent link">&para;</a></h3>
+<p>The image runs as root by default, so files the server writes into a
+bind-mounted data dir (<code>data_dir/*.json</code>, <code>key_dir/</code>) are root-owned — a
+non-root operator then needs <code>sudo</code> (or <code>docker exec … chown</code>) to edit them
+while the instance is stopped. To run as your own user, add <code>user</code> to the
+compose service and pre-chown the bind mounts:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ia</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="s">"${UID}:${GID}"</span>
+</code></pre></div>
+<p>With <code>user</code> set, the data dir must be owned by that uid/gid before start
+(<code>chown -R "$UID:$GID" docker-data/ia</code>). Two notes:</p>
+<ul>
+<li><strong><code>docker compose build</code> does not need root</strong> — it runs in the Docker
+  daemon; the <code>user:</code> directive only affects the running container, not the
+  build. Steps inside the Dockerfile that need root (e.g. <code>apt-get</code>) run as
+  root within the build regardless.</li>
+<li>The one privileged operation that legitimately needs an extra capability is
+  binding container port 443 for native TLS from a non-root process: use
+  <code>cap_add: [NET_BIND_SERVICE]</code>, or terminate TLS at a reverse proxy.</li>
+</ul>
+<h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h3>
+<p><code>logging.level</code> + <code>logging.format</code> (json/console). <code>debug</code> logs request
+protocol/header/body decisions; <code>info</code> logs startup lines, endpoint
+registration and the configured trust-anchor count; <code>warn</code>/<code>error</code> log
+validation, signing and resolution failures.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 go-oidfed contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "toc.integrate", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "main", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

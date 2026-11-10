@@ -1,0 +1,1220 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="go-oidfed">
+      
+      
+        <link rel="canonical" href="https://go-oidfed.github.io/lighthouse-light/0.24.00/data-directory/">
+      
+      
+        <link rel="prev" href="../config/">
+      
+      
+        <link rel="next" href="../signing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Data directory - LightHouse-light</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/admonitions.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-data-directory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LightHouse-light" class="md-header__button md-logo" aria-label="LightHouse-light" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LightHouse-light
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data directory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../config/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Data directory
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../signing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Signing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../endpoints/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Endpoints
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../deployment/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Deployment
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LightHouse-light" class="md-nav__button md-logo" aria-label="LightHouse-light" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    LightHouse-light
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data directory
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-9-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 9 files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The 9 files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authority_hintsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        authority_hints.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trust_mark_typesjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trust_mark_types.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trust_anchorsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trust_anchors.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subordinatesjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        subordinates.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trust_mark_specsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trust_mark_specs.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trust_mark_subjectsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trust_mark_subjects.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trust_mark_instancesjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trust_mark_instances.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#published_trust_marksjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        published_trust_marks.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jtijson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        jti.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistence-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistence semantics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scriptable-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scriptable provisioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="the-data-directory">The data directory<a class="headerlink" href="#the-data-directory" title="Permanent link">&para;</a></h1>
+<p>All federation content and runtime state persists as <strong>plain, hand-editable
+JSON files</strong> under <code>data_dir</code> (default <code>/data</code>). These files are 
+<strong>additional configuration files</strong>: subordinates, trust anchors, authority
+hints, trust mark specs/subjects and published trust marks are provisioned
+here, not in the YAML config. Write the files before the first start, or stop
+the instance, edit, and start again — changes are picked up at the next boot.</p>
+<ul>
+<li><strong>One instance per data dir</strong> — LightHouse is single-process by design and
+  the files have no cross-process locking.</li>
+<li>Writes are <strong>atomic</strong> (<code>&lt;file&gt;.tmp</code> + rename): a crash never leaves a torn
+  file.</li>
+<li><strong>Corrupt files abort startup</strong>, and the error names the file (e.g.
+  <code>store &lt;name&gt;: failed to parse &lt;file&gt;</code>). To recover, either <strong>fix the
+  JSON</strong> — the file is then loaded normally on the next start — or <strong>delete
+  the file</strong>, in which case an empty store is created in its place on the
+  next start (and you re-provision its content from scratch).</li>
+</ul>
+<h2 id="the-9-files">The 9 files<a class="headerlink" href="#the-9-files" title="Permanent link">&para;</a></h2>
+<p>There is one file per storage area. Each section below describes what the
+file is for and what its JSON looks like. Content files (<code>subordinates</code>,
+<code>trust_anchors</code>, <code>trust_mark_*</code>, <code>authority_hints</code>,
+<code>published_trust_marks</code>) you provision by hand; the runtime files
+(<code>jti.json</code>, <code>trust_mark_instances.json</code>) are maintained by the server
+(details below).</p>
+<h3 id="authority_hintsjson"><code>authority_hints.json</code><a class="headerlink" href="#authority_hintsjson" title="Permanent link">&para;</a></h3>
+<p>The <strong>superiors</strong> of this instance. The file is a bare array of hint rows;
+the entity configuration's <code>authority_hints</code> claim publishes only the
+<code>entity_id</code>s of these rows. Each hint may carry an outbound key-sync
+directive (<code>jwks_sync</code>); that block is <strong>never published</strong> — it only controls
+outbound notifications after key rotation.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://superior.example.org"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my superior"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"jwks_sync"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w"> </span><span class="nt">"jwt_lifetime"</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span><span class="w"> </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p><code>jwks_sync</code> modes (outbound-only, never published):</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>none</code></td>
+<td>(default) no syncing.</td>
+</tr>
+<tr>
+<td><code>push</code></td>
+<td>After a key rotation, POST a signed JWK Set containing the new keys to the superior's <code>federation_jwks_update_endpoint</code> (the endpoint and acceptable signing algorithms are resolved from the superior's entity configuration at rotation time).</td>
+</tr>
+<tr>
+<td><code>trigger</code></td>
+<td>POST this entity's <code>entity_id</code> to the superior's <code>federation_jwks_update_trigger_endpoint</code>, authenticated with a signed client assertion.</td>
+</tr>
+</tbody>
+</table>
+<p>Options: <code>jwt_lifetime</code> (s, default 600), <code>timeout</code> (s, default 20), and
+<code>headers</code> (map).</p>
+<h3 id="trust_mark_typesjson"><code>trust_mark_types.json</code><a class="headerlink" href="#trust_mark_typesjson" title="Permanent link">&para;</a></h3>
+<p>The <strong>trust mark types</strong> this instance issues or coordinates, each with its
+inline owner and allowed issuers. Used to publish <code>trust_mark_owners</code> and
+<code>trust_mark_issuers</code> in the entity configuration.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"trust_mark_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/trustmark"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example trust mark type"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://owner.example.org"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The type owner"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w"> </span><span class="nt">"crv"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P-256"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"o1"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"issuers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://tmi.example.org"</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allowed issuer"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>Each row carries <code>owner</code> (<code>{entity_id, description, jwks}</code>) and <code>issuers</code>
+(<code>[{issuer, description}]</code>), both optional.</p>
+<h3 id="trust_anchorsjson"><code>trust_anchors.json</code><a class="headerlink" href="#trust_anchorsjson" title="Permanent link">&para;</a></h3>
+<p>The <strong>trust anchors</strong> used for endpoint auth and chain resolution, as a bare
+array. Each row is identified by its entity ID and carries the anchor's public
+keys. A row may opt into automatic key refresh.</p>
+<div class="admonition info">
+<p class="admonition-title">references must resolve</p>
+<p>Endpoints reference trust anchors by <strong>entity ID only</strong>
+(<code>auth_trust_anchors</code>, <code>allowed_trust_anchors</code>, <code>endpoints.auth.trust_anchors</code>).
+The anchor itself must exist in this file, or startup fails with
+<code>trust anchor "..." is not defined in trust_anchors.json</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://root.example.org"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"enable_jwks_update"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"key_poll_interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w"> </span><span class="nt">"crv"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P-256"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">automatic key refresh</p>
+<p><code>enable_jwks_update: true</code> makes the instance poll the anchor's entity
+configuration and keep its stored <code>jwks</code> fresh; <code>key_poll_interval</code>
+(seconds; 0 = derived from the anchor's configuration lifetime). Refreshed
+keys are written back into this file and <strong>used immediately by endpoint
+auth</strong>; the refresher stops cleanly on shutdown. <code>jwks</code> is <strong>required</strong>
+unless you are bootstrapping via the flag — an anchor with the flag but
+no <code>jwks</code> boots empty and is filled from the first successful poll.</p>
+<p>Two caveats:</p>
+<ul>
+<li>The <strong>initial poll runs synchronously at startup</strong>, before the HTTP
+  server listens: if the anchor's entity configuration cannot be fetched
+  at that moment (unreachable host, transient error), startup <strong>fails</strong>.
+  The anchor should be reachable and stable before the instance boots.</li>
+<li>An anchor whose <code>entity_id</code> equals the instance's <strong>own</strong> entity ID is
+  <strong>skipped with a warning</strong> (its keys are already authoritative locally;
+  the refresh loop could never boot, since the initial poll would hit the
+  not-yet-listening server).</li>
+</ul>
+</div>
+<h3 id="subordinatesjson"><code>subordinates.json</code><a class="headerlink" href="#subordinatesjson" title="Permanent link">&para;</a></h3>
+<p>The subordinates for this instance. Each row may define its own metadata,
+metadata policy, constraints and additional claims; if any of it is omitted fall back to
+the general settings in <code>config.yaml</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://sub.example.org"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"provisioned"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"registered_entity_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"openid_relying_party"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"jwks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span><span class="w"> </span><span class="nt">"crv"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P-256"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"k1"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"metadata_policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"openid_relying_party"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"id_token_signed_response_alg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES256"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"additional_claims"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"claim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x"</span><span class="p">,</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"y"</span><span class="p">,</span><span class="w"> </span><span class="nt">"crit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>Row fields:</p>
+<ul>
+<li><code>entity_id</code> (required), <code>description</code>, <code>registered_entity_types</code>,
+  <code>metadata</code>, <code>metadata_policy</code>, <code>constraints</code> — see the
+  <a href="../config/#federation_data">general-vs-per-subordinate precedence table</a>.</li>
+<li><code>additional_claims</code> — per-subordinate claims that will be included in the
+  subordinate statement; <code>crit: true</code> marks them as critical extensions.</li>
+<li><code>enable_jwks_update</code>, <code>jwks_poll_interval</code> — automatic JWKS refresh for the
+  subordinate's published keys.</li>
+<li><code>status</code> — one of <code>active</code> / <code>blocked</code> / <code>pending</code> / <code>inactive</code>.</li>
+</ul>
+<p><code>endpoints.fetch.statement_lifetime</code> (config, default 600000 s ≈ 1 week)
+sets the subordinate statement <code>exp</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">active subordinates need keys</p>
+<p>A row with <code>"status": "active"</code> and no <code>jwks</code> keys is a boot error
+(<code>status cannot be active without keys</code>). Set the keys or use a non-active
+status.</p>
+</div>
+<h3 id="trust_mark_specsjson"><code>trust_mark_specs.json</code><a class="headerlink" href="#trust_mark_specsjson" title="Permanent link">&para;</a></h3>
+<p>The <strong>trust mark specs</strong>, as a bare array: for each <code>trust_mark_type</code>, what
+issued marks look like and who is eligible (<code>eligibility_config</code>). Specs must
+exist for marks to be issued.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"trust_mark_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/trustmark"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"lifetime"</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/trustmark/ref"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/logo.png"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"delegation_jwt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJ…"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"additional_claims"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example trust mark"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"cache_ttl"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"eligibility_config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db_only"</span><span class="p">,</span><span class="w"> </span><span class="nt">"check_cache_ttl"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>Fields: <code>trust_mark_type</code> (unique), <code>lifetime</code> (issued-mark lifetime in
+seconds), <code>ref</code>, <code>logo_uri</code>, <code>delegation_jwt</code>, <code>additional_claims</code>,
+<code>description</code>, <code>cache_ttl</code> (seconds; issued marks are cached to avoid
+re-signing), <code>eligibility_config</code>.</p>
+<p><code>eligibility_config.mode</code>:</p>
+<ul>
+<li><code>db_only</code> (default) — eligibility comes only from the subjects in
+  <code>trust_mark_subjects.json</code>.</li>
+<li><code>check_only</code> — eligibility comes only from a checker.</li>
+<li><code>db_or_check</code> — either source may grant eligibility.</li>
+<li><code>db_and_check</code> — both sources must grant it.</li>
+<li><code>custom</code> — a custom checker; <strong>requires</strong> <code>checker</code>.</li>
+</ul>
+<p><code>check_cache_ttl</code> (seconds) — eligibility results are cached and expire after
+<code>check_cache_ttl</code> or after 5 minutes of disuse (approximate periodic sweep).</p>
+<div class="admonition info">
+<p class="admonition-title">spec validation is a boot error</p>
+<p>An unknown <code>eligibility_config.mode</code> (valid: <code>db_only</code>, <code>check_only</code>,
+<code>db_or_check</code>, <code>db_and_check</code>, <code>custom</code>), or <code>custom</code> mode without a
+<code>checker</code>, is rejected at load.</p>
+</div>
+<h3 id="trust_mark_subjectsjson"><code>trust_mark_subjects.json</code><a class="headerlink" href="#trust_mark_subjectsjson" title="Permanent link">&para;</a></h3>
+<p>The <strong>trust mark subjects</strong>: who may receive a mark of a given type. The
+file is a mapping from <code>trust_mark_type</code> to its subject rows (the type is
+not repeated in every row). A subject's <code>status</code> controls what the issuance
+endpoints answer (active → mark issued, blocked → refused, pending →
+requestable). Blocking or inactivating a subject refuses <strong>new</strong> issuance;
+already-issued marks are not affected by the file — see
+<a href="#trust_mark_instancesjson"><code>trust_mark_instances.json</code></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"https://example.org/trustmark"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://sub.example.org"</span><span class="p">,</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>trust_mark_specs.json</code> and <code>trust_mark_subjects.json</code> belong together:
+subjects are matched against their type's spec, and mutations keep both
+files in sync. A subject whose spec is missing is skipped on load.</p>
+</div>
+<h3 id="trust_mark_instancesjson"><code>trust_mark_instances.json</code><a class="headerlink" href="#trust_mark_instancesjson" title="Permanent link">&para;</a></h3>
+<p>Every <strong>issued trust mark JWT</strong>, recorded at runtime (not provisioned by
+hand), as a bare array. <code>trust_mark_subject_id</code> is derived from
+type + entity. Used to answer <code>trust_mark_status</code> queries and the trust-mark
+listing — <code>trust_mark_status</code> answers against these rows.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"jti"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ca1a1536-dda2-4431-bf09-2cad16f16151"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1793975573</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1793975573</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1793979173</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"revoked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"trust_mark_subject_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8098244717992667663</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"trust_mark_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/trustmark"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://sub.example.org"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p><code>trust_mark_subject_id</code> is a <strong>content-addressed numeric ID</strong>, derived with
+FNV-1a-64 (low 63 bits) from <code>trust_mark_type</code> + the subject's <code>entity_id</code> —
+the same derivation both <code>trust_mark_specs.json</code> and
+<code>trust_mark_subjects.json</code> use for their rows, so an issued instance links to
+the subject row across restarts. You never write or read it.</p>
+<p>It is <code>0</code> when the subject has <strong>no row</strong> in <code>trust_mark_subjects.json</code>.
+That only happens under the checker-based eligibility modes
+(<code>check_only</code>, <code>db_or_check</code>, <code>custom</code>), where a checker — not a subject row
+— grants eligibility. Under <code>db_only</code> (the default) and <code>db_and_check</code> the
+subject row is the eligibility source, so a mark is issued only to an
+entity that has an active subject row and the ID is always set.</p>
+<div class="admonition info">
+<p class="admonition-title">Blocking a subject does not revoke outstanding instances</p>
+<p>A status change in <code>trust_mark_subjects.json</code> only refuses <strong>new</strong>
+issuance; it is picked up at the next boot and never rewrites this file.
+The <code>revoked</code> flag on an instance row is honored by <code>trust_mark_status</code>
+(and the listing excludes revoked rows), so revoke an issued mark by
+setting <code>"revoked": true</code> on its row here and restarting — no endpoint
+writes it (<code>ChangeSubjectStatus</code>, which revokes on subject block, is not
+wired in lighthouse-light). <code>trust_mark_status</code> answers <code>active</code> for
+signature-valid marks whose JTI is not tracked — see
+<a href="../endpoints/#trust-mark-status-semantics">endpoints.md</a>.</p>
+</div>
+<h3 id="published_trust_marksjson"><code>published_trust_marks.json</code><a class="headerlink" href="#published_trust_marksjson" title="Permanent link">&para;</a></h3>
+<p>The <strong>trust marks this entity itself holds and advertises</strong> in its entity
+configuration <code>trust_marks</code> claim — including any self-issuance rule
+(<code>self_issuance_spec</code>), as a bare array.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"trust_mark_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/trustmark"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"trust_mark_issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://tmi.example.org"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"trust_mark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJ…"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"refresh"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"min_lifetime"</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"refresh_grace_period"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"refresh_rate_limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"self_issuance_spec"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"lifetime"</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/trustmark"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/logo.png"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"additional_claims"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"include_extra_claims_in_info"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>Each row advertises one trust mark. The row either carries the mark itself
+(<code>trust_mark</code>), or describes how to obtain it — from the issuer via refresh,
+or by issuing it to itself (<code>self_issuance_spec</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>trust_mark_type</code></td>
+<td>string</td>
+<td>The trust mark type. Required unless it can be extracted from <code>trust_mark</code>.</td>
+</tr>
+<tr>
+<td><code>trust_mark_issuer</code></td>
+<td>string</td>
+<td>Entity ID of the mark's issuer, advertised alongside the mark. Required unless it can be extracted from <code>trust_mark</code>.</td>
+</tr>
+<tr>
+<td><code>trust_mark</code></td>
+<td>string</td>
+<td>The trust mark JWT itself (optional). If given, <code>trust_mark_issuer</code> and <code>trust_mark_type</code> are extracted from it at load and it is advertised as-is unless <code>refresh</code> is enabled.</td>
+</tr>
+<tr>
+<td><code>refresh</code></td>
+<td>boolean</td>
+<td>Keep the mark fresh: re-fetch it from the issuer's <code>federation_trust_mark_endpoint</code> (or re-issue it via <code>self_issuance_spec</code>) when it nears expiry. Without a stored <code>trust_mark</code>, refresh is <strong>always on</strong>. <code>false</code> (default) advertises the stored JWT unchanged.</td>
+</tr>
+<tr>
+<td><code>min_lifetime</code></td>
+<td>integer (s)</td>
+<td>Minimum remaining lifetime the mark must have before it counts as stale and is refreshed. Default <code>10</code>.</td>
+</tr>
+<tr>
+<td><code>refresh_grace_period</code></td>
+<td>integer (s)</td>
+<td>While the mark is still valid (above <code>min_lifetime</code>) but closer to expiry than this, a background refresh is triggered. Default <code>3600</code>.</td>
+</tr>
+<tr>
+<td><code>refresh_rate_limit</code></td>
+<td>integer (s)</td>
+<td>Minimum interval between refresh attempts; also the base of an exponential backoff (×2 per consecutive failure, capped at 1 h) after refresh errors. Default <code>60</code>.</td>
+</tr>
+<tr>
+<td><code>self_issuance_spec</code></td>
+<td>object</td>
+<td>Makes the entity issue the mark <strong>to itself</strong> (the mark's <code>sub</code> is this entity's own ID) instead of relying on an external issuer — see below. Implies <code>refresh: true</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>self_issuance_spec</code> fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lifetime</code></td>
+<td>integer (s)</td>
+<td>Lifetime of the issued mark. Without it the mark has no expiration (and never auto-refreshes).</td>
+</tr>
+<tr>
+<td><code>ref</code></td>
+<td>string</td>
+<td>Reference URI of the trust mark spec the issued mark follows.</td>
+</tr>
+<tr>
+<td><code>logo_uri</code></td>
+<td>string</td>
+<td>Logo embedded in the issued mark.</td>
+</tr>
+<tr>
+<td><code>additional_claims</code></td>
+<td>object</td>
+<td>Extra claims embedded in the mark's <code>extra</code> block.</td>
+</tr>
+<tr>
+<td><code>include_extra_claims_in_info</code></td>
+<td>boolean</td>
+<td>Also include <code>additional_claims</code> in the entity configuration's <code>trust_marks</code> info entry for this mark.</td>
+</tr>
+</tbody>
+</table>
+<p>A row that fails verification (no <code>trust_mark</code>, no valid
+<code>trust_mark_issuer</code>/<code>trust_mark_type</code>, no <code>self_issuance_spec</code>) is skipped
+with a warning when the entity configuration is built — it is not a boot
+error.</p>
+<h3 id="jtijson"><code>jti.json</code><a class="headerlink" href="#jtijson" title="Permanent link">&para;</a></h3>
+<p>Client-assertion <strong>replay protection</strong> entries, written at runtime when an
+authenticated endpoint is used. The file is a bare object of
+<code>"&lt;jti&gt;": &lt;expiresUnixSeconds&gt;</code> pairs; expired entries are reaped
+automatically.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"some-jti"</span><span class="p">:</span><span class="w"> </span><span class="mi">1793872800</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="persistence-semantics">Persistence semantics<a class="headerlink" href="#persistence-semantics" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Content is only in the files.</strong> The YAML config has no content sections;
+  nothing is written from config into these files. Removing a row from a file
+  removes it on the next boot.</li>
+<li><strong>Runtime rows survive.</strong> Enrolled subordinates, issued trust mark
+  instances, replay entries, and requested/approved subjects created through
+  the endpoints persist here and survive restarts. They are never overwritten
+  by the config.</li>
+<li><strong>Config-owned settings are never written to disk.</strong> General settings from
+  <code>config.yaml</code> (lifetimes, algorithm, rotation, entity metadata, policies,
+  constraints, general claims) are applied to the in-memory KV store at every
+  start — there is no <code>kv.json</code>. Entity-configuration extra claims are seeded
+  from <code>federation_data.extra_entity_configuration_claims</code> into an in-memory
+  store — there is no <code>additional_claims.json</code>. Removing a key from the
+  config removes its effect at the next start — see <a href="../config/">config.md</a>.</li>
+</ul>
+<h2 id="scriptable-provisioning">Scriptable provisioning<a class="headerlink" href="#scriptable-provisioning" title="Permanent link">&para;</a></h2>
+<p>Provision a trust anchor + subordinate without any YAML content sections:</p>
+<p><strong>Before the first start</strong>, write <code>trust_anchors.json</code> and
+<code>subordinates.json</code> as shown above. Start with a minimal config (<code>entity_id</code>,
+<code>data_dir</code>, <code>signing</code>, <code>endpoints.fetch.path: /fetch</code>). Then:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># the served subordinate statement uses the file's row</span>
+curl<span class="w"> </span>-fsS<span class="w"> </span><span class="s2">"http://localhost:7672/fetch?sub=https://sub.example.org"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d.<span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
+</code></pre></div>
+<p><strong>Editing while stopped</strong>: stop the instance (<code>SIGTERM</code>), edit the JSON,
+start again. Runtime-created rows keep your edits; content removal is
+removal.</p>
+<p><strong>Verification</strong></p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>json.tool<span class="w"> </span>data/subordinates.json<span class="w"> </span>data/trust_anchors.json
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 go-oidfed contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "toc.integrate", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "main", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

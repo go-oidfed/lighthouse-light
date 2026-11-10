@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://go-oidfed.github.io/lighthouse-light/0.24.00/</loc>
+         <lastmod>2026-11-10</lastmod>
+    </url>
+    <url>
+         <loc>https://go-oidfed.github.io/lighthouse-light/0.24.00/config/</loc>
+         <lastmod>2026-11-10</lastmod>
+    </url>
+    <url>
+         <loc>https://go-oidfed.github.io/lighthouse-light/0.24.00/data-directory/</loc>
+         <lastmod>2026-11-10</lastmod>
+    </url>
+    <url>
+         <loc>https://go-oidfed.github.io/lighthouse-light/0.24.00/deployment/</loc>
+         <lastmod>2026-11-10</lastmod>
+    </url>
+    <url>
+         <loc>https://go-oidfed.github.io/lighthouse-light/0.24.00/endpoints/</loc>
+         <lastmod>2026-11-10</lastmod>
+    </url>
+    <url>
+         <loc>https://go-oidfed.github.io/lighthouse-light/0.24.00/signing/</loc>
+         <lastmod>2026-11-10</lastmod>
+    </url>
+</urlset>
