@@ -1,0 +1,85 @@
+name: release
+
+on:
+  workflow_run:
+    workflows: ["docker"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_branch == 'main')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Read lighthouse version from go.mod
+        id: lh
+        run: |
+          set -euo pipefail
+          lh_ver="$(sed -nE 's/^[[:space:]]*github\.com\/go-oidfed\/lighthouse[[:space:]]+v([^[:space:]]+).*/\1/p' go.mod | head -n 1)"
+          if ! printf '%s' "${lh_ver}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::go.mod does not pin a released lighthouse version (got '${lh_ver}'); refusing to release"
+            exit 1
+          fi
+          echo "lh_ver=${lh_ver}" >> "${GITHUB_OUTPUT}"
+
+      - name: Check whether release is already out
+        id: fresh
+        run: |
+          set -euo pipefail
+          lh_ver="${{ steps.lh.outputs.lh_ver }}"
+          expected="v${lh_ver}0"
+          last="$(gh api repos/go-oidfed/lighthouse-light/releases/latest --jq .tag_name 2>/dev/null || true)"
+          if [ "${last}" = "${expected}" ]; then
+            echo "Release ${expected} for lighthouse v${lh_ver} already published; nothing to do."
+            echo "needed=false" >> "${GITHUB_OUTPUT}"
+          else
+            echo "needed=true" >> "${GITHUB_OUTPUT}"
+          fi
+          echo "expected=${expected}" >> "${GITHUB_OUTPUT}"
+          echo "lh_url=https://github.com/go-oidfed/lighthouse/releases/tag/v${lh_ver}" >> "${GITHUB_OUTPUT}"
+
+      - name: Assemble release notes
+        if: steps.fresh.outputs.needed == 'true'
+        run: |
+          set -euo pipefail
+          lh_ver="${{ steps.lh.outputs.lh_ver }}"
+          expected="${{ steps.fresh.outputs.expected }}"
+          lh_url="${{ steps.fresh.outputs.lh_url }}"
+          # Fails the run if the pinned lighthouse version has no GitHub release:
+          # gh api exits non-zero on HTTP errors (incl. 404) and set -e aborts.
+          notes="$(gh api "repos/go-oidfed/lighthouse/releases/tags/v${lh_ver}" --jq .body)"
+          {
+            echo "## LightHouse Light ${expected#v}"
+            echo
+            echo "This release builds on [LightHouse v${lh_ver}](${lh_url})."
+            echo
+            echo "### LightHouse v${lh_ver} release notes"
+            echo
+            printf '%s\n' "${notes}"
+          } > /tmp/release-notes.md
+
+      - name: Publish release
+        if: steps.fresh.outputs.needed == 'true'
+        run: |
+          set -euo pipefail
+          expected="${{ steps.fresh.outputs.expected }}"
+          if gh release view "${expected}" >/dev/null 2>&1; then
+            echo "Tag/release ${expected} already exists; skipping."
+            exit 0
+          fi
+          gh release create "${expected}" \
+            --target "${{ github.event.workflow_run.head_sha || github.sha }}" \
+            --title "LightHouse Light ${expected#v}" \
+            --notes-file /tmp/release-notes.md

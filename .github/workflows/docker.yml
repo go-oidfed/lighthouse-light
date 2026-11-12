@@ -36,6 +36,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
+            type=raw,value={{tag}}
       -
         name: Login to DockerHub
         if: github.event_name != 'pull_request'
